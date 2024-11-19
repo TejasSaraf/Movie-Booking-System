@@ -7,6 +7,9 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import model.DBConnect;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
@@ -74,7 +77,14 @@ public class SignUpController {
 		String firstName = txtFirstName.getText();
 		String lastName = txtLastName.getText();
 		String userName = txtUserName.getText();
-		String password = txtPassword.getText();
+		String plainPassword = txtPassword.getText();
+
+		// Hash the password
+		String hashedPassword = hashPassword(plainPassword);
+		if (hashedPassword == null) {
+			lblStatus.setText("Error hashing the password.");
+			return;
+		}
 
 		String insertQuery = "INSERT INTO useraccounts (firstName, lastName, username, password) VALUES (?, ?, ?, ?)";
 
@@ -85,7 +95,7 @@ public class SignUpController {
 			preparedStatement.setString(1, firstName);
 			preparedStatement.setString(2, lastName);
 			preparedStatement.setString(3, userName);
-			preparedStatement.setString(4, password);
+			preparedStatement.setString(4, hashedPassword);
 
 			// Execute update
 			int rowsAffected = preparedStatement.executeUpdate();
@@ -98,6 +108,24 @@ public class SignUpController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			lblStatus.setText("An error occurred during sign-up.");
+		}
+	}
+
+	/**
+	 * Hashes a password using SHA-256 and encodes it in Base64.
+	 *
+	 * @param password the plain text password to hash.
+	 * @return the hashed password as a Base64 encoded string, or null if an error
+	 *         occurs.
+	 */
+	private String hashPassword(String password) {
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
+			byte[] hashedBytes = md.digest(password.getBytes());
+			return Base64.getEncoder().encodeToString(hashedBytes);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 
@@ -157,5 +185,4 @@ public class SignUpController {
 		String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\\W)(?!.* ).{8,16}$";
 		return password.matches(passwordRegex);
 	}
-
 }
