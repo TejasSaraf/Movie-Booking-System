@@ -36,17 +36,38 @@ public class SignUpController {
 	private final DBConnect dbConnect = new DBConnect(); // Instance of DBConnect
 
 	@FXML
+	public void initialize() {
+		// Add validation listeners
+		addValidationListeners();
+		updateSignUpButtonState();
+	}
+
+	@FXML
 	public void signUpButtonOnAction(ActionEvent event) {
 		if (isInputValid()) {
 			insertNewUser();
 		} else {
-			lblStatus.setText("Please fill in all fields.");
+			lblStatus.setText("Please fill in all fields correctly.");
+		}
+	}
+
+	@FXML
+	public void loginButtonOnAction(ActionEvent event) {
+		// Logic to navigate back to login page
+		try {
+			javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
+			javafx.stage.Stage stage = (javafx.stage.Stage) loginButton.getScene().getWindow();
+			stage.setScene(new javafx.scene.Scene(root));
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+			lblStatus.setText("Error navigating to login page.");
 		}
 	}
 
 	private boolean isInputValid() {
-		return !txtFirstName.getText().isBlank() && !txtLastName.getText().isBlank() && !txtUserName.getText().isBlank()
-				&& !txtPassword.getText().isBlank();
+		return validateName(txtFirstName.getText()) && validateName(txtLastName.getText())
+				&& validateUserName(txtUserName.getText()) && validatePassword(txtPassword.getText());
 	}
 
 	private void insertNewUser() {
@@ -80,17 +101,61 @@ public class SignUpController {
 		}
 	}
 
-	@FXML
-	public void loginButtonOnAction(ActionEvent event) {
-		// Logic to navigate back to login page
-		try {
-			javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
-			javafx.stage.Stage stage = (javafx.stage.Stage) loginButton.getScene().getWindow();
-			stage.setScene(new javafx.scene.Scene(root));
-			stage.show();
-		} catch (Exception e) {
-			e.printStackTrace();
-			lblStatus.setText("Error navigating to login page.");
-		}
+	private void addValidationListeners() {
+		txtFirstName.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (!validateName(newValue)) {
+				txtFirstName.setStyle("-fx-border-color: red;");
+			} else {
+				txtFirstName.setStyle(null);
+			}
+			updateSignUpButtonState();
+		});
+
+		txtLastName.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (!validateName(newValue)) {
+				txtLastName.setStyle("-fx-border-color: red;");
+			} else {
+				txtLastName.setStyle(null);
+			}
+			updateSignUpButtonState();
+		});
+
+		txtUserName.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (!validateUserName(newValue)) {
+				txtUserName.setStyle("-fx-border-color: red;");
+			} else {
+				txtUserName.setStyle(null);
+			}
+			updateSignUpButtonState();
+		});
+
+		txtPassword.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (!validatePassword(newValue)) {
+				txtPassword.setStyle("-fx-border-color: red;");
+			} else {
+				txtPassword.setStyle(null);
+			}
+			updateSignUpButtonState();
+		});
 	}
+
+	private void updateSignUpButtonState() {
+		signUpButton.setDisable(!isInputValid());
+	}
+
+	private boolean validateName(String name) {
+		return name != null && name.matches("[A-Za-z]{2,}"); // Only alphabets, at least 2 characters
+	}
+
+	private boolean validateUserName(String userName) {
+		return userName != null && userName.matches("\\w{4,}"); // At least 4 characters, no special symbols
+	}
+
+	private boolean validatePassword(String password) {
+		if (password == null)
+			return false;
+		String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\\W)(?!.* ).{8,16}$";
+		return password.matches(passwordRegex);
+	}
+
 }
