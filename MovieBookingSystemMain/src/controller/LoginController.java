@@ -4,11 +4,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.event.ActionEvent;
 import javafx.scene.Parent;
-import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
+import javafx.stage.Stage;
 import model.DBConnect;
 
 import java.sql.Connection;
@@ -24,9 +24,12 @@ public class LoginController {
 
     @FXML
     private TextField txtPassword;
-    
+
     @FXML
     private Button loginButton;
+
+    @FXML
+    private Button signUpButton;
 
     private final DBConnect dbConnect = new DBConnect(); // Instance of DBConnect
 
@@ -53,7 +56,7 @@ public class LoginController {
 
             if (queryResult.next()) { // Check query result
                 if (queryResult.getInt(1) == 1) {
-                	Parent root = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
                     Scene scene = new Scene(root, 400, 400);
                     Stage stage = (Stage) loginButton.getScene().getWindow();
                     stage.setScene(scene);
@@ -65,6 +68,21 @@ public class LoginController {
         } catch (Exception e) {
             e.printStackTrace();
             lblStatus.setText("An error occurred.");
+        }
+    }
+
+    @FXML
+    public void signUpButtonOnAction(ActionEvent e) {
+        try {
+            System.out.println("Navigating to SignUp.fxml...");
+            Parent root = FXMLLoader.load(getClass().getResource("/view/SignUp.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) signUpButton.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            lblStatus.setText("Error: " + ex.getMessage());
         }
     }
 }
