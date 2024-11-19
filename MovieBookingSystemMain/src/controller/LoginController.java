@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 import model.DBConnect;
 
+import java.security.MessageDigest;
+import java.util.Base64;
 import java.sql.Connection;
 import java.sql.ResultSet;
 
@@ -80,19 +82,28 @@ public class LoginController {
 			// Get the database connection
 			Connection connectDB = dbConnect.connect();
 
-			// SQL query to verify user credentials
-			String verifyLogin = "SELECT COUNT(1) FROM UserAccounts WHERE username = ? AND password = ?";
-			try (java.sql.PreparedStatement preparedStatement = connectDB.prepareStatement(verifyLogin)) {
+			// SQL query to get the hashed password for the entered username
+			String getPasswordQuery = "SELECT password FROM UserAccounts WHERE username = ?";
+			try (java.sql.PreparedStatement preparedStatement = connectDB.prepareStatement(getPasswordQuery)) {
 				preparedStatement.setString(1, txtUserName.getText());
-				preparedStatement.setString(2, txtPassword.getText());
 
 				ResultSet queryResult = preparedStatement.executeQuery();
-				if (queryResult.next() && queryResult.getInt(1) == 1) {
-					javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
-					javafx.scene.Scene scene = new javafx.scene.Scene(root, 400, 400);
-					javafx.stage.Stage stage = (javafx.stage.Stage) loginButton.getScene().getWindow();
-					stage.setScene(scene);
-					stage.show();
+
+				if (queryResult.next()) {
+					String storedHashedPassword = queryResult.getString("password");
+					String enteredHashedPassword = hashPassword(txtPassword.getText());
+
+					if (storedHashedPassword.equals(enteredHashedPassword)) {
+						// Password matches, proceed to main page
+						javafx.scene.Parent root = javafx.fxml.FXMLLoader
+								.load(getClass().getResource("/view/Main.fxml"));
+						javafx.scene.Scene scene = new javafx.scene.Scene(root, 400, 400);
+						javafx.stage.Stage stage = (javafx.stage.Stage) loginButton.getScene().getWindow();
+						stage.setScene(scene);
+						stage.show();
+					} else {
+						lblStatus.setText("Invalid Username or Password!");
+					}
 				} else {
 					lblStatus.setText("Invalid Username or Password!");
 				}
@@ -100,6 +111,24 @@ public class LoginController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			lblStatus.setText("An error occurred during login.");
+		}
+	}
+
+	/**
+	 * Hashes a password using SHA-256 and encodes it in Base64.
+	 *
+	 * @param password the plain text password to hash.
+	 * @return the hashed password as a Base64 encoded string, or null if an error
+	 *         occurs.
+	 */
+	private String hashPassword(String password) {
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
+			byte[] hashedBytes = md.digest(password.getBytes());
+			return Base64.getEncoder().encodeToString(hashedBytes);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 
