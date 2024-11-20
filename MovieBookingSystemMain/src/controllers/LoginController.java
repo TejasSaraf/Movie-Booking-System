@@ -1,11 +1,11 @@
-package controller;
+package controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
-import model.DBConnect;
+import models.DBConnect;
 
 import java.security.MessageDigest;
 import java.util.Base64;
@@ -96,7 +96,7 @@ public class LoginController {
 					if (storedHashedPassword.equals(enteredHashedPassword)) {
 						// Password matches, proceed to main page
 						javafx.scene.Parent root = javafx.fxml.FXMLLoader
-								.load(getClass().getResource("/view/Main.fxml"));
+								.load(getClass().getResource("/views/Main.fxml"));
 						javafx.scene.Scene scene = new javafx.scene.Scene(root, 400, 400);
 						javafx.stage.Stage stage = (javafx.stage.Stage) loginButton.getScene().getWindow();
 						stage.setScene(scene);

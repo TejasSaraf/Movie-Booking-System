@@ -1,11 +1,11 @@
-package controller;
+package controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
-import model.DBConnect;
+import models.DBConnect;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -58,7 +58,7 @@ public class SignUpController {
 	public void loginButtonOnAction(ActionEvent event) {
 		// Logic to navigate back to login page
 		try {
-			javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
+			javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
 			javafx.stage.Stage stage = (javafx.stage.Stage) loginButton.getScene().getWindow();
 			stage.setScene(new javafx.scene.Scene(root));
 			stage.show();
