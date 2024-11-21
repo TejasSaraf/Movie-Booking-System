@@ -33,7 +33,6 @@ public class LoginController {
 
 	@FXML
 	public void initialize() {
-		// Add validation listeners
 		addValidationListeners();
 		updateLoginButtonState();
 	}
@@ -82,35 +81,47 @@ public class LoginController {
 			// Get the database connection
 			Connection connectDB = dbConnect.connect();
 
-			// SQL query to get the hashed password for the entered username
-			String getPasswordQuery = "SELECT password FROM UserAccounts WHERE username = ?";
-			try (java.sql.PreparedStatement preparedStatement = connectDB.prepareStatement(getPasswordQuery)) {
-				preparedStatement.setString(1, txtUserName.getText());
-
-				ResultSet queryResult = preparedStatement.executeQuery();
-
-				if (queryResult.next()) {
-					String storedHashedPassword = queryResult.getString("password");
-					String enteredHashedPassword = hashPassword(txtPassword.getText());
-
-					if (storedHashedPassword.equals(enteredHashedPassword)) {
-						// Password matches, proceed to main page
-						javafx.scene.Parent root = javafx.fxml.FXMLLoader
-								.load(getClass().getResource("/views/Main.fxml"));
-						javafx.scene.Scene scene = new javafx.scene.Scene(root, 400, 400);
-						javafx.stage.Stage stage = (javafx.stage.Stage) loginButton.getScene().getWindow();
-						stage.setScene(scene);
-						stage.show();
-					} else {
-						lblStatus.setText("Invalid Username or Password!");
-					}
-				} else {
-					lblStatus.setText("Invalid Username or Password!");
-				}
+			// Check login details for both users and admins
+			if (checkCredentials(connectDB, "useraccounts")) {
+				lblStatus.setText("User login successful!");
+				navigateToMainPage("/views/Main.fxml");
+			} else if (checkCredentials(connectDB, "adminaccounts")) {
+				lblStatus.setText("Admin login successful!");
+				navigateToMainPage("/views/Main.fxml");
+			} else {
+				lblStatus.setText("Invalid Username or Password!");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			lblStatus.setText("An error occurred during login.");
+		}
+	}
+
+	private boolean checkCredentials(Connection connectDB, String tableName) throws Exception {
+		String getPasswordQuery = "SELECT password FROM " + tableName + " WHERE username = ?";
+		try (java.sql.PreparedStatement preparedStatement = connectDB.prepareStatement(getPasswordQuery)) {
+			preparedStatement.setString(1, txtUserName.getText());
+			ResultSet queryResult = preparedStatement.executeQuery();
+
+			if (queryResult.next()) {
+				String storedHashedPassword = queryResult.getString("password");
+				String enteredHashedPassword = hashPassword(txtPassword.getText());
+				return storedHashedPassword.equals(enteredHashedPassword);
+			}
+		}
+		return false;
+	}
+
+	private void navigateToMainPage(String fxmlPath) {
+		try {
+			javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource(fxmlPath));
+			javafx.scene.Scene scene = new javafx.scene.Scene(root, 400, 400);
+			javafx.stage.Stage stage = (javafx.stage.Stage) loginButton.getScene().getWindow();
+			stage.setScene(scene);
+			stage.show();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			lblStatus.setText("Error navigating to main page.");
 		}
 	}
 
@@ -135,7 +146,7 @@ public class LoginController {
 	@FXML
 	public void signUpButtonOnAction(ActionEvent e) {
 		try {
-			javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("/view/SignUp.fxml"));
+			javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("/views/SignUp.fxml"));
 			javafx.scene.Scene scene = new javafx.scene.Scene(root);
 			javafx.stage.Stage stage = (javafx.stage.Stage) signUpButton.getScene().getWindow();
 			stage.setScene(scene);

@@ -13,19 +13,18 @@ import java.sql.ResultSet;
 
 public class AdminController {
 
-    @FXML
-    private TextField txtUserName;
+	@FXML
+	private TextField txtUserName;
 
-    @FXML
-    private TextField txtPassword;
+	@FXML
+	private TextField txtPassword;
 
-    @FXML
-    private Button loginButton;
+	@FXML
+	private Button loginButton;
 
-    @FXML
-    private Label lblStatus;
+	@FXML
+	private Label lblStatus;
 
-    private final DBConnect dbConnect = new DBConnect(); // Database connection instance
-    
-    
+	private final DBConnect dbConnect = new DBConnect(); // Database connection instance
+
 }
