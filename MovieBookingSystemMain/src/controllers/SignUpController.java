@@ -2,6 +2,7 @@ package controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
@@ -35,6 +36,18 @@ public class SignUpController {
 
 	@FXML
 	private Label lblStatus;
+
+	@FXML
+	private TextField txtEmailAddress;
+
+	@FXML
+	private DatePicker DateofBirth;
+
+	@FXML
+	private TextField txtAddress;
+
+	@FXML
+	private TextField txtPhoneNumber;
 
 	private final DBConnect dbConnect = new DBConnect(); // Instance of DBConnect
 
@@ -70,7 +83,9 @@ public class SignUpController {
 
 	private boolean isInputValid() {
 		return validateName(txtFirstName.getText()) && validateName(txtLastName.getText())
-				&& validateUserName(txtUserName.getText()) && validatePassword(txtPassword.getText());
+				&& validateUserName(txtUserName.getText()) && validatePassword(txtPassword.getText())
+				&& validateEmail(txtEmailAddress.getText()) && validatePhoneNumber(txtPhoneNumber.getText())
+				&& DateofBirth.getValue() != null && validateAddress(txtAddress.getText());
 	}
 
 	private void insertNewUser() {
@@ -78,6 +93,10 @@ public class SignUpController {
 		String lastName = txtLastName.getText();
 		String userName = txtUserName.getText();
 		String plainPassword = txtPassword.getText();
+		String emailAdderss = txtEmailAddress.getText();
+		String address = txtAddress.getText();
+		String phoneNo = txtPhoneNumber.getText();
+		String dateOfBirth = DateofBirth.getValue() != null ? DateofBirth.getValue().toString() : "";
 
 		// Hash the password
 		String hashedPassword = hashPassword(plainPassword);
@@ -86,7 +105,7 @@ public class SignUpController {
 			return;
 		}
 
-		String insertQuery = "INSERT INTO useraccounts (firstName, lastName, username, password) VALUES (?, ?, ?, ?)";
+		String insertQuery = "INSERT INTO useraccounts (firstName, lastName, username, password, emailaddress, dateofbirth, address, phoneNo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try (Connection connectDB = dbConnect.connect();
 				PreparedStatement preparedStatement = connectDB.prepareStatement(insertQuery)) {
@@ -96,6 +115,10 @@ public class SignUpController {
 			preparedStatement.setString(2, lastName);
 			preparedStatement.setString(3, userName);
 			preparedStatement.setString(4, hashedPassword);
+			preparedStatement.setString(5, emailAdderss);
+			preparedStatement.setString(6, dateOfBirth);
+			preparedStatement.setString(7, address);
+			preparedStatement.setString(8, phoneNo);
 
 			// Execute update
 			int rowsAffected = preparedStatement.executeUpdate();
@@ -165,6 +188,42 @@ public class SignUpController {
 			}
 			updateSignUpButtonState();
 		});
+
+		txtEmailAddress.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (!validateEmail(newValue)) {
+				txtEmailAddress.setStyle("-fx-border-color: red;");
+			} else {
+				txtEmailAddress.setStyle(null);
+			}
+			updateSignUpButtonState();
+		});
+
+		txtPhoneNumber.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (!validatePhoneNumber(newValue)) {
+				txtPhoneNumber.setStyle("-fx-border-color: red;");
+			} else {
+				txtPhoneNumber.setStyle(null);
+			}
+			updateSignUpButtonState();
+		});
+
+		DateofBirth.valueProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue == null) {
+				DateofBirth.setStyle("-fx-border-color: red;");
+			} else {
+				DateofBirth.setStyle(null);
+			}
+			updateSignUpButtonState();
+		});
+
+		txtAddress.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (!validateAddress(newValue)) {
+				txtAddress.setStyle("-fx-border-color: red;");
+			} else {
+				txtAddress.setStyle(null);
+			}
+			updateSignUpButtonState();
+		});
 	}
 
 	private void updateSignUpButtonState() {
@@ -184,5 +243,24 @@ public class SignUpController {
 			return false;
 		String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\\W)(?!.* ).{8,16}$";
 		return password.matches(passwordRegex);
+	}
+
+	private boolean validateEmail(String email) {
+		if (email == null || email.isEmpty())
+			return false;
+		String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
+		return email.matches(emailRegex);
+	}
+
+	private boolean validatePhoneNumber(String phoneNumber) {
+		if (phoneNumber == null || phoneNumber.isEmpty())
+			return false;
+		String phoneRegex = "^(\\+\\d{1,2}\\s?)?\\(?\\d{3}\\)?[-\\s]?\\d{3}[-\\s]?\\d{4}$"; // Basic phone number
+																							// validation
+		return phoneNumber.matches(phoneRegex);
+	}
+
+	private boolean validateAddress(String address) {
+		return address != null && !address.trim().isEmpty(); // Ensure address is not empty
 	}
 }

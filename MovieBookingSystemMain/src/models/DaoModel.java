@@ -47,7 +47,9 @@ public class DaoModel {
 			String createTableSQL = "CREATE TABLE " + tableName + " ("
 					+ "idUserAccounts INT UNSIGNED NOT NULL AUTO_INCREMENT, " + "Firstname VARCHAR(45) NOT NULL, "
 					+ "Lastname VARCHAR(45) NOT NULL, " + "Username VARCHAR(45) NOT NULL, "
-					+ "Password VARCHAR(45) NOT NULL, " + "PRIMARY KEY (idUserAccounts), "
+					+ "Password VARCHAR(45) NOT NULL, " + "emailaddress VARCHAR(45) DEFAULT NULL, "
+					+ "dateofbirth DATE DEFAULT NULL, " + "address VARCHAR(45) DEFAULT NULL, "
+					+ "phoneno VARCHAR(45) DEFAULT NULL, " + "PRIMARY KEY (idUserAccounts), "
 					+ "UNIQUE KEY Username_UNIQUE (Username)) "
 					+ "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci";
 
@@ -91,24 +93,46 @@ public class DaoModel {
 		}
 	}
 
-	public void insertUser(String tableName, String firstName, String lastName, String username, String password) {
-		String insertSQL = "INSERT INTO " + tableName
-				+ " (Firstname, Lastname, Username, Password) VALUES (?, ?, ?, ?)";
-		try (PreparedStatement pstmt = dbConnection.prepareStatement(insertSQL)) {
-			pstmt.setString(1, firstName);
-			pstmt.setString(2, lastName);
-			pstmt.setString(3, username);
-			pstmt.setString(4, hashPassword(password)); // Hash the password before inserting
+	public void insertUser(String tableName, String firstName, String lastName, String username, String password,
+			String emailaddress, String dateofbirth, String address, String phoneno) {
+		// First, check if a user with the same username already exists
+		String checkUserSQL = "SELECT COUNT(*) FROM " + tableName + " WHERE Username = ?";
+		try (PreparedStatement checkStmt = dbConnection.prepareStatement(checkUserSQL)) {
+			checkStmt.setString(1, username);
+			ResultSet rs = checkStmt.executeQuery();
+			rs.next();
+			int userCount = rs.getInt(1);
 
-			int rowsInserted = pstmt.executeUpdate();
-			if (rowsInserted > 0) {
-				System.out.println("User details inserted successfully into " + tableName);
+			// If the user already exists, print an error and return
+			if (userCount > 0) {
+				System.err.println("Error: A user with the username '" + username + "' already exists in " + tableName);
+				return; // Prevent inserting a duplicate user
 			}
-		} catch (SQLIntegrityConstraintViolationException e) {
-			System.err.println("Error: A user with the username '" + username + "' already exists in " + tableName);
-			// Optionally, log the error or rethrow it if needed
+
+			// Proceed to insert the new user
+			String insertSQL = "INSERT INTO " + tableName
+					+ " (Firstname, Lastname, Username, Password, emailaddress, dateofbirth, address, phoneno) "
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+			try (PreparedStatement pstmt = dbConnection.prepareStatement(insertSQL)) {
+				pstmt.setString(1, firstName);
+				pstmt.setString(2, lastName);
+				pstmt.setString(3, username);
+				pstmt.setString(4, hashPassword(password)); // Hash the password before inserting
+				pstmt.setString(5, emailaddress);
+				pstmt.setString(6, dateofbirth);
+				pstmt.setString(7, address);
+				pstmt.setString(8, phoneno);
+
+				int rowsInserted = pstmt.executeUpdate();
+				if (rowsInserted > 0) {
+					System.out.println("User details inserted successfully into " + tableName);
+				}
+			} catch (SQLException se) {
+				se.printStackTrace(); // Log other SQL exceptions
+			}
 		} catch (SQLException se) {
-			se.printStackTrace(); // Log other SQL exceptions
+			se.printStackTrace();
 		}
 	}
 
@@ -146,7 +170,8 @@ public class DaoModel {
 		}
 
 		// Insert user details into the table
-		insertUser(tableName, "Sumit", "Padwal", "Sumit", "#Sumit@123");
+		insertUser(tableName, "Jake", "Paul", "Jake", "#Jake@123", "jake@gmail.com", "2000-10-01", "Chicago",
+				"3125598767");
 	}
 
 	public void checkAndInsertUserForAdmin() {
