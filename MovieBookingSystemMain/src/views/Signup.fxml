@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -9,58 +10,52 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
-	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="controllers.SignUpController">
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignUpController">
 	<children>
-		<HBox prefHeight="300.0" prefWidth="600.0">
+		<HBox prefHeight="351.0" prefWidth="728.0">
 			<children>
 				<AnchorPane prefHeight="300.0" prefWidth="287.0">
 					<children>
-						<ImageView fitHeight="300.0" fitWidth="302.0"
-							pickOnBounds="true" preserveRatio="true">
+						<ImageView fitHeight="368.0" fitWidth="384.0" pickOnBounds="true" preserveRatio="true">
 							<image>
 								<Image url="@../images/Movie.png" />
 							</image>
 						</ImageView>
 					</children>
 				</AnchorPane>
-				<AnchorPane prefHeight="300.0" prefWidth="299.0">
+				<AnchorPane prefHeight="368.0" prefWidth="367.0">
 					<children>
-						<Label layoutX="34.0" layoutY="40.0" text="FirstName" />
-						<Label layoutX="36.0" layoutY="169.0" text="Password" />
-						<Label layoutX="34.0" layoutY="129.0" text="Username" />
-						<Label layoutX="35.0" layoutY="86.0" text="LastName" />
-						<TextField fx:id="txtFirstName" layoutX="109.0"
-							layoutY="36.0" promptText="Enter FirstName" />
-						<TextField fx:id="txtPassword" layoutX="109.0"
-							layoutY="165.0" promptText="Enter Password" />
-						<TextField fx:id="txtUserName" layoutX="109.0"
-							layoutY="125.0" promptText="Enter Username" />
-						<TextField fx:id="txtLastName" layoutX="109.0"
-							layoutY="82.0" promptText="Enter LastName" />
-						<Button fx:id="signUpButton" layoutX="127.0"
-							layoutY="215.0" mnemonicParsing="false"
-							onAction="#signUpButtonOnAction"
-							style="-fx-background-color: #b93939;" text="SignUp"
-							textAlignment="CENTER" textFill="#f8f8f8">
+						<Label layoutX="14.0" layoutY="40.0" text="FirstName" />
+						<Label layoutX="16.0" layoutY="115.0" text="Password" />
+						<Label layoutX="14.0" layoutY="76.0" text="Username" />
+						<Label layoutX="205.0" layoutY="40.0" text="LastName" translateX="-3.0" />
+						<TextField fx:id="txtFirstName" layoutX="122.0" layoutY="36.0" prefHeight="25.0" prefWidth="103.0" promptText="Enter FirstName" translateX="-31.0" />
+						<TextField fx:id="txtPassword" layoutX="91.0" layoutY="111.0" prefHeight="25.0" prefWidth="217.0" promptText="Enter Password" />
+						<TextField fx:id="txtUserName" layoutX="91.0" layoutY="72.0" prefHeight="25.0" prefWidth="217.0" promptText="Enter Username" />
+						<Button fx:id="signUpButton" layoutX="137.0" layoutY="325.0" mnemonicParsing="false" onAction="#signUpButtonOnAction" style="-fx-background-color: #b93939;" text="SignUp" textAlignment="CENTER" textFill="#f8f8f8">
 							<font>
 								<Font name="System Bold" size="12.0" />
 							</font>
 						</Button>
-						<Label layoutX="76.0" layoutY="253.0"
-							text="Already a member?" />
-						<Button fx:id="loginButton" layoutX="179.0" layoutY="249.0"
-							mnemonicParsing="false" onAction="#loginButtonOnAction"
-							style="-fx-background-color: transperent;" text="Login"
-							textAlignment="CENTER" textFill="#4f3cd0" underline="true" />
-						<Label fx:id="lblStatus" layoutX="145.0" layoutY="190.0"
-							prefHeight="17.0" prefWidth="20.0" />
-						<Label layoutX="135.0" layoutY="6.0" text="SignUp">
+						<Label layoutX="214.0" layoutY="329.0" text="Already a member?" />
+						<Button fx:id="loginButton" layoutX="317.0" layoutY="325.0" mnemonicParsing="false" onAction="#loginButtonOnAction" style="-fx-background-color: transperent;" text="Login" textAlignment="CENTER" textFill="#4f3cd0" underline="true" />
+						<Label fx:id="lblStatus" layoutX="145.0" layoutY="190.0" prefHeight="17.0" prefWidth="20.0" />
+						<Label layoutX="178.0" layoutY="4.0" text="SignUp">
 							<font>
 								<Font name="System Bold" size="14.0" />
 							</font>
 						</Label>
+            						<TextField fx:id="txtLastName" layoutX="273.0" layoutY="36.0" prefHeight="25.0" prefWidth="103.0" promptText="Enter LastName" translateX="-10.0" />
+                  <DatePicker fx:id="DateofBirth" layoutX="91.0" layoutY="208.0" prefHeight="25.0" prefWidth="217.0" promptText="Select Date of Birth" translateY="8.0" />
+                  <Label layoutX="18.0" layoutY="220.0" text="Date of Birth" translateX="-3.0" />
+                  <Label layoutX="16.0" layoutY="147.0" text="Password" />
+                  <TextField fx:id="txtReEnterPassword" layoutX="91.0" layoutY="143.0" prefHeight="25.0" prefWidth="217.0" promptText="Re-Enter Password" />
+                  <Label layoutX="14.0" layoutY="182.0" text="Email Adderss" />
+                  <TextField fx:id="txtEmailAddress" layoutX="91.0" layoutY="178.0" prefHeight="25.0" prefWidth="217.0" promptText="Enter Emial Adderss" />
+                  <Label layoutX="15.0" layoutY="294.0" text="Phone No" translateX="3.0" />
+                  <Label layoutX="14.0" layoutY="256.0" text="Adderss" translateX="3.0" />
+                  <TextField fx:id="txtPhoneNumber" layoutX="91.0" layoutY="290.0" prefHeight="25.0" prefWidth="217.0" promptText="Enter Phone Number" />
+                  <TextField fx:id="txtAddress" layoutX="91.0" layoutY="252.0" prefHeight="25.0" prefWidth="217.0" promptText="Enter Adderss" />
 					</children>
 				</AnchorPane>
 			</children>
