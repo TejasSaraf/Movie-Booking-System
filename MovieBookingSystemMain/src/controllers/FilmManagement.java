@@ -9,6 +9,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.DBConnect;
@@ -16,10 +19,13 @@ import models.DBConnect;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import javafx.scene.Node;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -28,49 +34,55 @@ public class FilmManagement implements Initializable {
 
 	@FXML
 	private Button addFilmButton;
-
 	@FXML
 	private TextField trailerField;
-
 	@FXML
 	private TextField titleField;
-
 	@FXML
 	private TextArea descriptionArea;
-
 	@FXML
 	private DatePicker fromDate;
-
 	@FXML
 	private DatePicker toDate;
-
 	@FXML
-	private ChoiceBox<String> timeChoice1;
-
+	private ComboBox<String> timeChoice1;
 	@FXML
-	private ChoiceBox<String> timeChoice2;
-
+	private ComboBox<String> timeChoice2;
 	@FXML
-	private ChoiceBox<String> timeChoice3;
-
+	private ComboBox<String> timeChoice3;
 	@FXML
-	private ChoiceBox<String> ageRatingChoice;
-
+	private ComboBox<String> ageRatingChoice;
 	@FXML
 	private TextField imdbRatingField;
-
 	@FXML
 	private Button uploadImageButton;
-
 	@FXML
 	private ImageView uploadedFilmPoster;
-
 	@FXML
 	private Button backBtn;
-
 	@FXML
 	private Button homeBtn;
 
+	@FXML
+	private Label txtTitle;
+
+	@FXML
+	private Label lblFrom;
+	@FXML
+	private Label lblTo;
+	@FXML
+	private Label lblTime1;
+	@FXML
+	private Label lblTime2;
+	@FXML
+	private Label lblTime3;
+	@FXML
+	private Label lblAgeRating;
+	@FXML
+	private Label lblIMDBRating;
+
+	@FXML
+	private Text txtdescription;
 	private String uploadedImagePath = "";
 	private final DBConnect dbConnect = new DBConnect();
 
@@ -79,10 +91,10 @@ public class FilmManagement implements Initializable {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/views/EmployeeHome.fxml"));
 			Stage stage = (Stage) backBtn.getScene().getWindow();
-
 			stage.setScene(new Scene(root));
 			stage.show();
 		} catch (IOException e) {
+			showAlert("Error", "Error loading the home page: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -91,12 +103,11 @@ public class FilmManagement implements Initializable {
 	public void homeButtonOnAction(ActionEvent event) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/views/EmployeeHome.fxml"));
-
 			Stage stage = (Stage) homeBtn.getScene().getWindow();
-
 			stage.setScene(new Scene(root));
 			stage.show();
 		} catch (IOException e) {
+			showAlert("Error", "Error loading the home page: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -174,7 +185,6 @@ public class FilmManagement implements Initializable {
 		try (Connection connectDB = dbConnect.connect();
 				PreparedStatement preparedStatement = connectDB.prepareStatement(insertQuery);
 				FileInputStream fis = new FileInputStream(uploadedImagePath)) {
-
 			preparedStatement.setBinaryStream(1, fis); // Store image as BLOB
 			preparedStatement.setString(2, trailer);
 			preparedStatement.setString(3, title);
@@ -193,7 +203,6 @@ public class FilmManagement implements Initializable {
 			} else {
 				showAlert("Failure", "Failed to add film.");
 			}
-
 		} catch (SQLException | IOException e) {
 			showAlert("Database Error", "Error inserting data into the database: " + e.getMessage());
 			e.printStackTrace();
@@ -221,12 +230,105 @@ public class FilmManagement implements Initializable {
 				uploadedFilmPoster.setImage(image);
 				uploadedImagePath = selectedFile.getAbsolutePath();
 				showAlert("Success", "Image uploaded successfully");
-
 			} catch (Exception e) {
 				showAlert("Error", "Failed to load image: " + e.getMessage());
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@FXML
+	private void updateFilmDetails(KeyEvent e) {
+		// Determine the source of the event
+		switch (((Node) e.getSource()).getId()) {
+		case "titleField": // If the title field is updated
+			txtTitle.setText(titleField.getText());
+			break;
+		case "descriptionArea": // If the description area is updated
+			txtdescription.setText(descriptionArea.getText());
+			break;
+		case "imdbRatingField": // If the imdbRatingField is updated
+			lblIMDBRating.setText(imdbRatingField.getText());
+			break;
+		}
+	}
+
+	@FXML
+	public void updateDateTimeAge(ActionEvent e) {
+		try {
+			switch (((Node) e.getSource()).getId()) {
+			case "fromDate":
+				LocalDate startDate = fromDate.getValue();
+				if (startDate != null) {
+					String startDateFormatted = startDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+					lblFrom.setText(startDateFormatted);
+				} else {
+					lblFrom.setText("Invalid start date");
+				}
+				break;
+			case "toDate":
+				LocalDate endDate = toDate.getValue();
+				if (endDate != null) {
+					String endDateFormatted = endDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+					lblTo.setText(endDateFormatted);
+				} else {
+					lblTo.setText("Invalid end date");
+				}
+				break;
+			case "timeChoice1":
+				if (timeChoice1.getValue() != null) {
+					lblTime1.setText(timeChoice1.getValue());
+				} else {
+					lblTime1.setText("Invalid time selection");
+				}
+				break;
+			case "timeChoice2":
+				if (timeChoice2.getValue() != null) {
+					lblTime2.setText(timeChoice2.getValue());
+				} else {
+					lblTime2.setText("Invalid time selection");
+				}
+				break;
+			case "timeChoice3":
+				if (timeChoice3.getValue() != null) {
+					lblTime3.setText(timeChoice3.getValue());
+				} else {
+					lblTime3.setText("Invalid time selection");
+				}
+				break;
+			case "ageRatingChoice":
+				if (ageRatingChoice.getValue() != null) {
+					lblAgeRating.setText(ageRatingChoice.getValue());
+				} else {
+					lblAgeRating.setText("Invalid age rating selection");
+				}
+				break;
+			default:
+				System.out.println("Unknown control triggered the event");
+				break;
+			}
+		} catch (Exception ex) {
+			// Handle any unexpected exceptions
+			ex.printStackTrace();
+			// Optionally show an alert to the user
+			showErrorAlert("An error occurred while updating the date and time.");
+		}
+	}
+
+	private void showErrorAlert(String message) {
+		Alert alert = new Alert(Alert.AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText("Error occurred");
+		alert.setContentText(message);
+		alert.showAndWait();
+	}
+
+	private void showAlert(String title, String message) {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setTitle(title);
+		alert.setHeaderText(null);
+		alert.setContentText(message);
+		alert.showAndWait();
 	}
 
 	private void clearFields() {
@@ -240,22 +342,7 @@ public class FilmManagement implements Initializable {
 		timeChoice3.setValue(null);
 		ageRatingChoice.setValue(null);
 		imdbRatingField.clear();
-
-		// Reset to default image
-		try {
-			Image defaultImage = new Image(getClass().getResourceAsStream("/images/defaultFilmPoster.png"));
-			uploadedFilmPoster.setImage(defaultImage);
-		} catch (Exception e) {
-			System.err.println("Could not load default image: " + e.getMessage());
-		}
-
+		uploadedFilmPoster.setImage(new Image(getClass().getResourceAsStream("/images/defaultFilmPoster.png")));
 		uploadedImagePath = "";
-	}
-
-	private void showAlert(String title, String message) {
-		Alert alert = new Alert(Alert.AlertType.INFORMATION);
-		alert.setTitle(title);
-		alert.setContentText(message);
-		alert.showAndWait();
 	}
 }
