@@ -103,9 +103,10 @@
 					prefHeight="17.0" prefWidth="109.0" text="12A" />
 				<Label fx:id="lblIMDBRating" layoutX="580.0" layoutY="259.0"
 					prefHeight="17.0" prefWidth="109.0" text="X/10" />
-				<Button layoutX="584.0" layoutY="429.0"
-					mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0"
-					text="See All Films" translateX="-10.0" />
+				<Button fx:id="viewFilms" layoutX="584.0" layoutY="429.0"
+					mnemonicParsing="false" onAction="#viewFilmsButtonOnAction"
+					prefHeight="25.0" prefWidth="102.0" text="See All Films"
+					translateX="-10.0" />
 				<Text fx:id="txtdescription" layoutX="374.0" layoutY="311.0"
 					onKeyReleased="#updateFilmDetails" strokeType="OUTSIDE"
 					strokeWidth="0.0" wrappingWidth="285.13671875" />

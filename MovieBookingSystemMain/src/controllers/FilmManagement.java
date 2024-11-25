@@ -80,6 +80,8 @@ public class FilmManagement implements Initializable {
 	private Label lblAgeRating;
 	@FXML
 	private Label lblIMDBRating;
+	@FXML
+	private Button viewFilms;
 
 	@FXML
 	private Text txtdescription;
@@ -104,6 +106,19 @@ public class FilmManagement implements Initializable {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/views/EmployeeHome.fxml"));
 			Stage stage = (Stage) homeBtn.getScene().getWindow();
+			stage.setScene(new Scene(root));
+			stage.show();
+		} catch (IOException e) {
+			showAlert("Error", "Error loading the home page: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	public void viewFilmsButtonOnAction(ActionEvent event) {
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/views/ViewFilms.fxml"));
+			Stage stage = (Stage) viewFilms.getScene().getWindow();
 			stage.setScene(new Scene(root));
 			stage.show();
 		} catch (IOException e) {
@@ -335,6 +350,7 @@ public class FilmManagement implements Initializable {
 		trailerField.clear();
 		titleField.clear();
 		descriptionArea.clear();
+		txtdescription.setText(null);
 		fromDate.setValue(null);
 		toDate.setValue(null);
 		timeChoice1.setValue(null);
