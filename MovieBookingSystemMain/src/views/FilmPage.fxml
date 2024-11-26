@@ -41,8 +41,8 @@
 		<Label layoutX="234.0" layoutY="294.0" text="Times:" />
 		<Label fx:id="lblTimes" layoutX="280.0" layoutY="294.0"
 			prefHeight="17.0" prefWidth="139.0" text="Label" />
-		<Button layoutX="234.0" layoutY="345.0" mnemonicParsing="false"
-			text="Delete" />
+		<Button fx:id="btnDelete" layoutX="234.0" layoutY="345.0"
+			mnemonicParsing="false" text="Delete" onAction="#handleDeleteFilm" />
 		<Button layoutX="417.0" layoutY="345.0" mnemonicParsing="false"
 			text="See Bookings" />
 	</children>
