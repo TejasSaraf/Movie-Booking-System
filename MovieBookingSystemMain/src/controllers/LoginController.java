@@ -39,6 +39,7 @@ public class LoginController {
 	private Button exportBookingsBtn;
 
 	private final DBConnect dbConnect = new DBConnect(); // Instance of DBConnect
+	public static boolean checkAdmin = false;
 
 	@FXML
 	public void initialize() {
@@ -93,10 +94,11 @@ public class LoginController {
 			// Check login details for both users and admins
 			if (checkCredentials(connectDB, "useraccounts")) {
 				lblStatus.setText("User login successful!");
-				navigateToMainPage("/views/EmployeeHome.fxml");
+				navigateToMainPage("/views/ViewFilms.fxml");
 			} else if (checkCredentials(connectDB, "adminaccounts")) {
 				lblStatus.setText("Admin login successful!");
 				navigateToMainPage("/views/EmployeeHome.fxml");
+				checkAdmin = true;
 			} else {
 				lblStatus.setText("Invalid Username or Password!");
 			}

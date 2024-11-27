@@ -3,6 +3,8 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.event.ActionEvent;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -40,6 +42,8 @@ public class FilmPage {
 	private Label lblTimes;
 	@FXML
 	private Button btnDelete;
+	@FXML
+	private Button btnEdit, bookBtn;
 
 	private final DBConnect dbConnect = new DBConnect();
 	private int currentFilmId;
@@ -76,6 +80,18 @@ public class FilmPage {
 				lblAgeRating.setText(resultSet.getString("age_rating"));
 				lblImdbRating.setText(resultSet.getString("imdb_rating"));
 				lblTimes.setText(resultSet.getString("times"));
+
+				// Set the button text based on user role
+	            if (LoginController.checkAdmin == true) {
+	                bookBtn.setText("SEE BOOKINGS");
+	            } else {
+	                bookBtn.setText("BOOK NOW");
+	            }
+	            
+	            if (!LoginController.checkAdmin) {
+	            	btnDelete.setVisible(false);
+	            	btnEdit.setVisible(false);
+		        }
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -121,6 +137,39 @@ public class FilmPage {
 		stage.setScene(scene);
 		stage.show();
 	}
+
+		public void goToBookingScene(ActionEvent event) throws IOException {
+    	if(LoginController.checkAdmin == true){
+    			try {
+    				// Load the Login.fxml file
+    				Parent root = FXMLLoader.load(getClass().getResource("/views/BookingManagement.fxml"));
+
+    				// Get the current stage
+    				Stage stage = (Stage) bookBtn.getScene().getWindow();
+
+    				// Set the new scene
+    				stage.setScene(new Scene(root));
+    				stage.show();
+    			} catch (IOException e) {
+    				e.printStackTrace();
+    			}
+		}
+    	else{
+				try {
+					// Load the Login.fxml file
+					Parent root = FXMLLoader.load(getClass().getResource("/views/TicketBooking.fxml"));
+
+					// Get the current stage
+					Stage stage = (Stage) bookBtn.getScene().getWindow();
+
+					// Set the new scene
+					stage.setScene(new Scene(root));
+					stage.show();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		}
+    }
 
 	private void showAlert(Alert.AlertType alertType, String title, String message) {
 		Alert alert = new Alert(alertType, message, ButtonType.OK);
