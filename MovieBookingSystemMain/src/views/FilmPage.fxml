@@ -15,7 +15,7 @@
 				<Font name="Comic Sans MS Bold" size="23.0" />
 			</font>
 		</Label>
-		<Button layoutX="460.0" layoutY="18.0" mnemonicParsing="false" text="Back" />
+		<Button fx:id="backBtn" layoutX="460.0" layoutY="18.0" mnemonicParsing="false" onAction="#handleBackButtonAction" text="Back" />
 		<Label fx:id="lblTitle" layoutX="235.0" layoutY="66.0" text="Label" />
 		<Text fx:id="txtdescription" layoutX="235.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="266.13671875" />
 		<Label layoutX="234.0" layoutY="235.0" text="From:" />
