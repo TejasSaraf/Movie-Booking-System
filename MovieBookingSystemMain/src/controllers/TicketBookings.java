@@ -42,6 +42,8 @@ public class TicketBookings {
 	private double adultPrice = 50, childPrice = 20, seniorPrice = 40, vip = 5;
 	public static boolean isVip = false;
 	public static String screenNum = "", date = "", time = "";
+	public static String selectedFilmTitleStr = ""; // Store the selected film title
+	public static int totalTicketsCount = 0; // Total number of tickets
 
 	private final DBConnect dbConnect = new DBConnect();
 
@@ -208,9 +210,13 @@ public class TicketBookings {
 	}
 
 	@FXML
-	public void handleSeatsButtonAction() {
+	private void handleSeatsButtonAction() {
+		// Update static fields before navigating
+		selectedFilmTitleStr = selectedFilmTitle.getText();
+		totalTicketsCount = adultTickets + childTickets + seniorTickets;
+
 		try {
-			// Load the Login.fxml file
+			// Load the SeatBooking.fxml file
 			Parent root = FXMLLoader.load(getClass().getResource("/views/SeatBooking.fxml"));
 
 			// Get the current stage

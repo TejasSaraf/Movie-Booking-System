@@ -24,8 +24,8 @@
 					height="52.0" layoutX="-1.0" stroke="#edf0f4" strokeType="INSIDE"
 					width="749.0" />
 				<Button fx:id="backBtn" layoutX="671.0" layoutY="7.0"
-					mnemonicParsing="false" prefHeight="36.0" prefWidth="69.0"
-					style="-fx-background-color: #edf0f4;" text="Back"
+					mnemonicParsing="false" onAction="#handleBack" prefHeight="36.0"
+					prefWidth="69.0" style="-fx-background-color: #edf0f4;" text="Back"
 					textFill="#29323d">
 					<font>
 						<Font name="Microsoft YaHei Bold" size="18.0" />
@@ -464,9 +464,10 @@
 					</font>
 				</Button>
 				<Button fx:id="confirmationBtn" layoutX="299.0"
-					layoutY="357.0" mnemonicParsing="false" prefHeight="25.0"
-					prefWidth="122.0" style="-fx-background-color: #29323D;"
-					text="CONFIRM" textFill="WHITE">
+					layoutY="357.0" mnemonicParsing="false"
+					onAction="#handleConfirmation" prefHeight="25.0" prefWidth="122.0"
+					style="-fx-background-color: #29323D;" text="CONFIRM"
+					textFill="WHITE">
 					<font>
 						<Font name="Microsoft YaHei Bold" size="12.0" />
 					</font>
