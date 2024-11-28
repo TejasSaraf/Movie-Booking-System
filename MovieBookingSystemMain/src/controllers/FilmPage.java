@@ -43,7 +43,7 @@ public class FilmPage {
 	@FXML
 	private Button btnDelete;
 	@FXML
-	private Button btnEdit, bookBtn;
+	private Button btnEdit, bookBtn, backBtn;
 
 	private final DBConnect dbConnect = new DBConnect();
 	private int currentFilmId;
@@ -138,39 +138,59 @@ public class FilmPage {
 		stage.show();
 	}
 
-		public void goToBookingScene(ActionEvent event) throws IOException {
-    	if(LoginController.checkAdmin == true){
-    			try {
-    				// Load the Login.fxml file
-    				Parent root = FXMLLoader.load(getClass().getResource("/views/BookingManagement.fxml"));
+	public void goToBookingScene(ActionEvent event) throws IOException {
+	    if(LoginController.checkAdmin == true){
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BookingManagement.fxml"));
+	        Parent root = loader.load();
 
-    				// Get the current stage
-    				Stage stage = (Stage) bookBtn.getScene().getWindow();
+	        // Get the controller and pass the film ID
+	        TicketBookings ticketBookingsController = loader.getController();
+	        ticketBookingsController.setFilmId(currentFilmId);
 
-    				// Set the new scene
-    				stage.setScene(new Scene(root));
-    				stage.show();
-    			} catch (IOException e) {
-    				e.printStackTrace();
-    			}
+	        // Get the current stage and set the new scene
+	        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	        stage.setScene(new Scene(root));
+	        stage.show();
+	    } else {
+	        try {
+	            // Load the TicketBookings.fxml file
+	            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/TicketBookings.fxml"));
+	            Parent root = loader.load();
+
+	            // Get the controller and pass the film ID
+	            TicketBookings ticketBookingsController = loader.getController();
+	            ticketBookingsController.setFilmId(currentFilmId);
+
+	            // Get the current stage
+	            Stage stage = (Stage) bookBtn.getScene().getWindow();
+
+	            // Set the new scene
+	            stage.setScene(new Scene(root));
+	            stage.show();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
+
+	@FXML
+	public void handleBackButtonAction() {
+		// Logic to handle back button
+		try {
+			// Load the Login.fxml file
+			Parent root = FXMLLoader.load(getClass().getResource("/views/ViewFilms.fxml"));
+
+			// Get the current stage
+			Stage stage = (Stage) backBtn.getScene().getWindow();
+
+			// Set the new scene
+			stage.setScene(new Scene(root));
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-    	else{
-				try {
-					// Load the Login.fxml file
-					Parent root = FXMLLoader.load(getClass().getResource("/views/TicketBooking.fxml"));
-
-					// Get the current stage
-					Stage stage = (Stage) bookBtn.getScene().getWindow();
-
-					// Set the new scene
-					stage.setScene(new Scene(root));
-					stage.show();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-		}
-    }
-
+	}
+	
 	private void showAlert(Alert.AlertType alertType, String title, String message) {
 		Alert alert = new Alert(alertType, message, ButtonType.OK);
 		alert.setTitle(title);
