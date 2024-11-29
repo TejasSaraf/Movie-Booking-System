@@ -29,13 +29,13 @@ public class LoginController {
 
 	@FXML
 	private Button signUpButton;
-	
+
 	@FXML
 	private Button logoutBtn;
-	
+
 	@FXML
 	private Button manageFilmsBtn;
-	
+
 	@FXML
 	private Button exportBookingsBtn;
 
@@ -88,26 +88,24 @@ public class LoginController {
 	}
 
 	private void validateLogin() {
-	    try (Connection connectDB = dbConnect.connect()) {
-	        if (checkCredentials(connectDB, "useraccounts")) {
-	            lblStatus.setText("User login successful!");
-	            UserSession.getInstance().setUsername(txtUserName.getText());
-	            UserSession.getInstance().setAdmin(false); // Regular user
-	            navigateToMainPage("/views/ViewFilms.fxml");
-	        } else if (checkCredentials(connectDB, "adminaccounts")) {
-	            lblStatus.setText("Admin login successful!");
-	            UserSession.getInstance().setUsername(txtUserName.getText());
-	            UserSession.getInstance().setAdmin(true); // Admin
-	            navigateToMainPage("/views/EmployeeHome.fxml");
-	        } else {
-	            lblStatus.setText("Invalid Username or Password!");
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        lblStatus.setText("An error occurred during login.");
-	    }
+		try (Connection connectDB = dbConnect.connect()) {
+			if (checkCredentials(connectDB, "useraccounts")) {
+				lblStatus.setText("User login successful!");
+				UserSession.getInstance().setUsername(txtUserName.getText());
+				navigateToMainPage("/views/ViewFilms.fxml");
+			} else if (checkCredentials(connectDB, "adminaccounts")) {
+				lblStatus.setText("Admin login successful!");
+				UserSession.getInstance().setUsername(txtUserName.getText());
+				navigateToMainPage("/views/EmployeeHome.fxml");
+				checkAdmin = true;
+			} else {
+				lblStatus.setText("Invalid Username or Password!");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			lblStatus.setText("An error occurred during login.");
+		}
 	}
-
 
 	private boolean checkCredentials(Connection connectDB, String tableName) throws Exception {
 		String getPasswordQuery = "SELECT password FROM " + tableName + " WHERE username = ?";
@@ -127,7 +125,7 @@ public class LoginController {
 	private void navigateToMainPage(String fxmlPath) {
 		try {
 			javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource(fxmlPath));
-			javafx.scene.Scene scene = new javafx.scene.Scene(root, 400, 400);
+			javafx.scene.Scene scene = new javafx.scene.Scene(root);
 			javafx.stage.Stage stage = (javafx.stage.Stage) loginButton.getScene().getWindow();
 			stage.setScene(scene);
 			stage.show();
