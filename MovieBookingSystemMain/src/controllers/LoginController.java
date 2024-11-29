@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 import models.DBConnect;
+import models.UserSession;
 
 import java.security.MessageDigest;
 import java.util.Base64;
@@ -87,26 +88,26 @@ public class LoginController {
 	}
 
 	private void validateLogin() {
-		try {
-			// Get the database connection
-			Connection connectDB = dbConnect.connect();
-
-			// Check login details for both users and admins
-			if (checkCredentials(connectDB, "useraccounts")) {
-				lblStatus.setText("User login successful!");
-				navigateToMainPage("/views/ViewFilms.fxml");
-			} else if (checkCredentials(connectDB, "adminaccounts")) {
-				lblStatus.setText("Admin login successful!");
-				navigateToMainPage("/views/EmployeeHome.fxml");
-				checkAdmin = true;
-			} else {
-				lblStatus.setText("Invalid Username or Password!");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			lblStatus.setText("An error occurred during login.");
-		}
+	    try (Connection connectDB = dbConnect.connect()) {
+	        if (checkCredentials(connectDB, "useraccounts")) {
+	            lblStatus.setText("User login successful!");
+	            UserSession.getInstance().setUsername(txtUserName.getText());
+	            UserSession.getInstance().setAdmin(false); // Regular user
+	            navigateToMainPage("/views/ViewFilms.fxml");
+	        } else if (checkCredentials(connectDB, "adminaccounts")) {
+	            lblStatus.setText("Admin login successful!");
+	            UserSession.getInstance().setUsername(txtUserName.getText());
+	            UserSession.getInstance().setAdmin(true); // Admin
+	            navigateToMainPage("/views/EmployeeHome.fxml");
+	        } else {
+	            lblStatus.setText("Invalid Username or Password!");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        lblStatus.setText("An error occurred during login.");
+	    }
 	}
+
 
 	private boolean checkCredentials(Connection connectDB, String tableName) throws Exception {
 		String getPasswordQuery = "SELECT password FROM " + tableName + " WHERE username = ?";

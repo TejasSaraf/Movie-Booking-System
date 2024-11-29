@@ -30,11 +30,22 @@ public class SeatBooking {
 	private static boolean[] bookings = new boolean[24];
 	private int maxSeats;
 	private int numberOfSeats = 0;
-	private List<String> selectedSeatList = new ArrayList<>();
+	public static List<String> selectedSeatList = new ArrayList<>();
 
 	public static String userSeats = "";
 
 	public static boolean seatsSelected = false;
+	
+	private int currentFilmId;
+
+	/**
+	 * Sets the film ID and loads its details.
+	 *
+	 * @param imageId The ID of the film to load.
+	 */
+	public void setFilmId(int imageId) {
+		currentFilmId = imageId;
+	}
 
 	@FXML
 	private void initialize() {
@@ -160,17 +171,23 @@ public class SeatBooking {
 		System.out.println("Seats confirmed: " + userSeats);
 		// Navigate to confirmation or next screen
 		try {
-			// Load the SeatBooking.fxml file
-			Parent root = FXMLLoader.load(getClass().getResource("/views/ConfirmationPage.fxml"));
+		    // Load the SeatBooking.fxml file
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ConfirmationPage.fxml"));
+			Parent root = loader.load();
 
-			// Get the current stage
-			Stage stage = (Stage) confirmationBtn.getScene().getWindow();
+		    // Get the current stage
+		 // Get the controller from the loaded FXML
+		 			Confirmation confirmationPageController = loader.getController();
 
-			// Set the new scene
-			stage.setScene(new Scene(root));
-			stage.show();
+		 			// Pass the imageId to the FilmPage controller
+		 			confirmationPageController.setFilmId(currentFilmId);
+
+		    // Set the new scene
+		 			Stage stage = (Stage) confirmationBtn.getScene().getWindow();
+		    stage.setScene(new Scene(root));
+		    stage.show();
 		} catch (IOException e) {
-			e.printStackTrace();
+		    e.printStackTrace();
 		}
 	}
 
