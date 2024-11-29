@@ -14,6 +14,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import models.DBConnect;
+import models.UserSession;
+
 import java.io.ByteArrayInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,17 +33,20 @@ public class ViewFilms {
 	private Button btnLogout;
 
 	@FXML
-	public void logoutButtonOnAction(ActionEvent event) {
-		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
-			Stage stage = (Stage) btnLogout.getScene().getWindow();
-			stage.setScene(new Scene(root));
-			stage.show();
-		} catch (IOException e) {
-			showAlert("Error", "Error loading the home page: " + e.getMessage());
-			e.printStackTrace();
-		}
+	public void logoutButtonOnAction(ActionEvent e) {
+	    UserSession.getInstance().clearSession();
+	    try {
+	        javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
+	        javafx.scene.Scene scene = new javafx.scene.Scene(root);
+	        javafx.stage.Stage stage = (javafx.stage.Stage) btnLogout.getScene().getWindow();
+	        stage.setScene(scene);
+	        stage.show();
+	    } catch (Exception ex) {
+	        ex.printStackTrace();
+//	        lblStatus.setText("Error navigating to login page.");
+	    }
 	}
+
 
 	@FXML
 	public void initialize() {

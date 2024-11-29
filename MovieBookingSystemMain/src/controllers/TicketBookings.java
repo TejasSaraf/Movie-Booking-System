@@ -217,7 +217,14 @@ public class TicketBookings {
 
 		try {
 			// Load the SeatBooking.fxml file
-			Parent root = FXMLLoader.load(getClass().getResource("/views/SeatBooking.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/SeatBooking.fxml"));
+			Parent root = loader.load();
+			
+			// Get the controller from the loaded FXML
+						SeatBooking seatBookingController = loader.getController();
+
+						// Pass the imageId to the FilmPage controller
+						seatBookingController.setFilmId(currentFilmId);
 
 			// Get the current stage
 			Stage stage = (Stage) seatsBtn.getScene().getWindow();
