@@ -91,7 +91,6 @@ public class LoginController {
 		try (Connection connectDB = dbConnect.connect()) {
 			if (checkCredentials(connectDB, "useraccounts")) {
 				lblStatus.setText("User login successful!");
-				UserSession.getInstance().setUsername(txtUserName.getText());
 				navigateToMainPage("/views/ViewFilms.fxml");
 			} else if (checkCredentials(connectDB, "adminaccounts")) {
 				lblStatus.setText("Admin login successful!");

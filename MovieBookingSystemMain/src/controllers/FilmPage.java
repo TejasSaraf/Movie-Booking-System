@@ -1,9 +1,9 @@
 package controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -22,6 +22,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import application.Main;
 
 public class FilmPage {
 	@FXML
@@ -54,34 +56,34 @@ public class FilmPage {
 	}
 
 	private void loadFilmDetails(int imageId) {
-		String query = "SELECT image_data, title, description, date_from, date_to, "
-				+ "age_rating, imdb_rating, times FROM films WHERE id = ?";
+	    String query = "SELECT image_data, title, description, date_from, date_to, "
+	            + "age_rating, imdb_rating, times FROM films WHERE id = ?";
 
-		try (Connection connection = dbConnect.connect();
-				PreparedStatement statement = connection.prepareStatement(query)) {
+	    try (Connection connection = dbConnect.connect();
+	            PreparedStatement statement = connection.prepareStatement(query)) {
 
-			statement.setInt(1, imageId);
-			ResultSet resultSet = statement.executeQuery();
+	        statement.setInt(1, imageId);
+	        ResultSet resultSet = statement.executeQuery();
 
-			if (resultSet.next()) {
-				// Load image
-				byte[] imageData = resultSet.getBytes("image_data");
-				if (imageData != null) {
-					ByteArrayInputStream bis = new ByteArrayInputStream(imageData);
-					Image image = new Image(bis);
-					filmImageView.setImage(image);
-				}
+	        if (resultSet.next()) {
+	            // Load image
+	            byte[] imageData = resultSet.getBytes("image_data");
+	            if (imageData != null) {
+	                ByteArrayInputStream bis = new ByteArrayInputStream(imageData);
+	                Image image = new Image(bis);
+	                filmImageView.setImage(image);
+	            }
 
-				// Load text data
-				lblTitle.setText(resultSet.getString("title"));
-				txtdescription.setText(resultSet.getString("description"));
-				lblFrom.setText(resultSet.getDate("date_from").toString());
-				lblTo.setText(resultSet.getDate("date_to").toString());
-				lblAgeRating.setText(resultSet.getString("age_rating"));
-				lblImdbRating.setText(resultSet.getString("imdb_rating"));
-				lblTimes.setText(resultSet.getString("times"));
-
-				// Set the button text based on user role
+	            // Load text data
+	            lblTitle.setText(resultSet.getString("title"));
+	            txtdescription.setText(resultSet.getString("description"));
+	            lblFrom.setText(resultSet.getDate("date_from").toString());
+	            lblTo.setText(resultSet.getDate("date_to").toString());
+	            lblAgeRating.setText(resultSet.getString("age_rating"));
+	            lblImdbRating.setText(resultSet.getString("imdb_rating"));
+	            lblTimes.setText(resultSet.getString("times"));
+	            
+	            // Set the button text based on user role
 	            if (LoginController.checkAdmin == true) {
 	                bookBtn.setText("SEE BOOKINGS");
 	            } else {
@@ -92,12 +94,13 @@ public class FilmPage {
 	            	btnDelete.setVisible(false);
 	            	btnEdit.setVisible(false);
 		        }
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("Error retrieving film details from database: " + e.getMessage());
-		}
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        System.out.println("Error retrieving film details from database: " + e.getMessage());
+	    }
 	}
+
 
 	@FXML
 	private void handleDeleteFilm() {
