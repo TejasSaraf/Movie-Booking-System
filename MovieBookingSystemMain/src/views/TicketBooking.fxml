@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1">
+   <children>
+      <AnchorPane prefHeight="220.0" prefWidth="334.0">
+         <children>
+            <Label layoutX="134.0" layoutY="106.0" text="Ticket Booking" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
