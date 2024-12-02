@@ -8,7 +8,6 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="403.0" prefWidth="519.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FilmPage">
-<AnchorPane prefHeight="403.0" prefWidth="519.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FilmPage">
 	<children>
 		<ImageView fx:id="filmImageView" fitHeight="296.0" fitWidth="200.0" layoutX="22.0" layoutY="73.0" />
 		<Label layoutX="22.0" layoutY="14.0" text="Movie Flix">
@@ -31,6 +30,6 @@
 		<Label fx:id="lblTimes" layoutX="280.0" layoutY="294.0" prefHeight="17.0" prefWidth="139.0" text="Label" />
 		<Button fx:id="btnDelete" layoutX="234.0" layoutY="345.0" mnemonicParsing="false" onAction="#handleDeleteFilm" text="Delete" />
 		<Button fx:id="bookBtn" layoutX="417.0" layoutY="345.0" mnemonicParsing="false" onAction="#goToBookingScene" text="See Bookings" />
-      <Button fx:id="btnEdit" layoutX="324.0" layoutY="345.0" mnemonicParsing="false" onAction="#handleDeleteFilm" text="Edit" />
+      <Button fx:id="btnEdit" layoutX="324.0" layoutY="345.0" mnemonicParsing="false" onAction="#updateFilm" text="Edit" />
 	</children>
 </AnchorPane>

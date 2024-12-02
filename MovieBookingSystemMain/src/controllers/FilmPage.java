@@ -194,6 +194,29 @@ public class FilmPage {
 		}
 	}
 	
+	@FXML
+	public void updateFilm() {
+		// Logic to handle back button
+		try {
+            // Load the TicketBookings.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/UpdateFilm.fxml"));
+            Parent root = loader.load();
+
+            // Get the controller and pass the film ID
+            UpdateFilm updateFilmController = loader.getController();
+            updateFilmController.setFilmId(currentFilmId);
+
+            // Get the current stage
+            Stage stage = (Stage) btnEdit.getScene().getWindow();
+
+            // Set the new scene
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
 	private void showAlert(Alert.AlertType alertType, String title, String message) {
 		Alert alert = new Alert(alertType, message, ButtonType.OK);
 		alert.setTitle(title);
