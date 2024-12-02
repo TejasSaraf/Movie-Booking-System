@@ -146,14 +146,12 @@ public class FilmPage {
 	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BookingManagement.fxml"));
 	        Parent root = loader.load();
 
-	        // Get the controller and pass the film ID
-	        TicketBookings ticketBookingsController = loader.getController();
-	        ticketBookingsController.setFilmId(currentFilmId);
+	     // Get the current stage
+            Stage stage = (Stage) bookBtn.getScene().getWindow();
 
-	        // Get the current stage and set the new scene
-	        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	        stage.setScene(new Scene(root));
-	        stage.show();
+            // Set the new scene
+            stage.setScene(new Scene(root));
+            stage.show();
 	    } else {
 	        try {
 	            // Load the TicketBookings.fxml file

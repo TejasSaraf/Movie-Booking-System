@@ -7,83 +7,91 @@ import java.sql.SQLException;
 import models.DBConnect;
 
 public class UserSession {
-    private static UserSession instance;
-    private String username;
-    private boolean isAdmin;
-    
-    // Add fields to store user details
-    private String firstName;
-    private String lastName;
-    private String email;
-    
-    private final DBConnect dbConnect = new DBConnect();
+	private static UserSession instance;
+	private String username;
+	private boolean isAdmin;
 
-    private UserSession() {}
+	// Add fields to store user details
+	private String firstName;
+	private String lastName;
+	private String email;
 
-    public static UserSession getInstance() {
-        if (instance == null) {
-            instance = new UserSession();
-        }
-        return instance;
-    }
+	private final DBConnect dbConnect = new DBConnect();
 
-    public void setUsername(String username) {
-        this.username = username;
-        // When username is set, fetch user details
-        fetchUserDetails();
-    }
+	private UserSession() {
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public static UserSession getInstance() {
+		if (instance == null) {
+			instance = new UserSession();
+		}
+		return instance;
+	}
 
-    public void setAdmin(boolean isAdmin) {
-        this.isAdmin = isAdmin;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+		// When username is set, fetch user details
+		fetchUserDetails();
+	}
 
-    public boolean isAdmin() {
-        return isAdmin;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    // New method to fetch user details from database
-    private void fetchUserDetails() {
-        String query = "SELECT Firstname, lastname, emailaddress FROM useraccounts WHERE username = ?";
-        
-        try (Connection connection = dbConnect.connect();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            
-            statement.setString(1, this.username);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    this.firstName = resultSet.getString("Firstname");
-                    this.lastName = resultSet.getString("lastname");
-                    this.email = resultSet.getString("emailaddress");
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Error retrieving user details: " + e.getMessage());
-        }
-    }
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
 
-    // Getter methods for user details
-    public String getFirstName() {
-        return firstName;
-    }
+	public boolean isAdmin() {
+		return isAdmin;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	// New method to fetch user details from database
+	private void fetchUserDetails() {
+		if (this.username == null || this.username.isEmpty()) {
+			System.out.println("Username is null or empty. Cannot fetch user details.");
+			return;
+		}
 
-    public String getEmail() {
-        return email;
-    }
+		String query = "SELECT Firstname, lastname, emailaddress FROM useraccounts WHERE username = ?";
+		try (Connection connection = dbConnect.connect();
+				PreparedStatement statement = connection.prepareStatement(query)) {
 
-    public void clearSession() {
-        username = null;
-        isAdmin = false;
-        firstName = null;
-        lastName = null;
-        email = null;
-    }
+			statement.setString(1, this.username);
+			try (ResultSet resultSet = statement.executeQuery()) {
+				if (resultSet.next()) {
+					this.firstName = resultSet.getString("Firstname");
+					this.lastName = resultSet.getString("lastname");
+					this.email = resultSet.getString("emailaddress");
+					System.out.println("User details fetched successfully.");
+				} else {
+					System.out.println("No user found for username: " + this.username);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Error retrieving user details: " + e.getMessage());
+		}
+	}
+
+	// Getter methods for user details
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void clearSession() {
+		username = null;
+		isAdmin = false;
+		firstName = null;
+		lastName = null;
+		email = null;
+	}
 }

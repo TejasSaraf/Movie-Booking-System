@@ -6,4 +6,5 @@ module MovieBookingSystemMain {
     
     opens application to javafx.graphics, javafx.fxml;
     opens controllers to javafx.fxml;
+    opens models to javafx.base;
 }

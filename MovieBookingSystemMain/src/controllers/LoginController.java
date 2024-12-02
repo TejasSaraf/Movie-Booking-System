@@ -91,12 +91,15 @@ public class LoginController {
 		try (Connection connectDB = dbConnect.connect()) {
 			if (checkCredentials(connectDB, "useraccounts")) {
 				lblStatus.setText("User login successful!");
+				UserSession.getInstance().setUsername(txtUserName.getText());
+				UserSession.getInstance().setAdmin(false); // Regular user
 				navigateToMainPage("/views/ViewFilms.fxml");
 			} else if (checkCredentials(connectDB, "adminaccounts")) {
 				lblStatus.setText("Admin login successful!");
 				UserSession.getInstance().setUsername(txtUserName.getText());
-				navigateToMainPage("/views/EmployeeHome.fxml");
+				UserSession.getInstance().setAdmin(true); // Admin
 				checkAdmin = true;
+				navigateToMainPage("/views/EmployeeHome.fxml");
 			} else {
 				lblStatus.setText("Invalid Username or Password!");
 			}

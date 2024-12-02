@@ -31,7 +31,7 @@ public class Confirmation {
 	ImageView selectedFilmPoster;
 
 	@FXML
-	Button homeBtn, downloadBtn;
+	Button homeBtn, emailBtn;
 
 	String selectedFilm = "", date = "", time = "";
 
@@ -92,38 +92,34 @@ public class Confirmation {
 	// Initialize the confirmation screen with session and booking details
 	@FXML
 	public void initialize() {
-
 		// Retrieve user session details
 		UserSession userSession = UserSession.getInstance();
-		firstname.setText(userSession.getUsername()); // Assuming userSession stores the user's first name
-		lastName.setText(userSession.getLastName());
-		email.setText(userSession.getEmail()); // Replace with actual email retrieval logic
 
-		Firstname = userSession.getFirstName();
-		Lastname = userSession.getLastName();
-		Emailid = userSession.getEmail();
+		if (userSession.getFirstName() != null && userSession.getLastName() != null && userSession.getEmail() != null) {
+			firstname.setText(userSession.getFirstName());
+			lastName.setText(userSession.getLastName());
+			email.setText(userSession.getEmail());
+
+			// Assign these values to class-level variables for database insertion
+			Firstname = userSession.getFirstName();
+			Lastname = userSession.getLastName();
+			Emailid = userSession.getEmail();
+		} else {
+			System.out.println("User session details are not available.");
+			return; // Stop further execution if user details are missing
+		}
 
 		// Set booking details
-//        selectedFilmTitle.setText("Film Name");  // Set film title dynamically from booking data
-//        selectedFilmPoster.setImage(new javafx.scene.image.Image("path_to_image"));  // Set the image dynamically
-
-		// Populate the customer booking details (example values, replace with actual
-		// data)
 		adult.setText(String.valueOf(TicketBookings.adultTickets));
 		child.setText(String.valueOf(TicketBookings.childTickets));
 		senior.setText(String.valueOf(TicketBookings.seniorTickets));
 		isVip.setText(String.valueOf(TicketBookings.isVip));
 		total.setText(String.format("$%.2f", TicketBookings.total));
 
-		// Set date and time (from booking or database)
-		datetime.setText(String.valueOf(TicketBookings.date) + " " + String.valueOf(TicketBookings.time)); // Ensure
-																											// finalDate
-																											// and
-																											// finalTime
-																											// are
-																											// populated
-		screen.setText(String.valueOf(TicketBookings.screenNum)); // Example screen number
-		seats.setText(String.valueOf(SeatBooking.selectedSeatList)); // Example seats booked
+		// Set date and time
+		datetime.setText(TicketBookings.date + " " + TicketBookings.time);
+		screen.setText(String.valueOf(TicketBookings.screenNum));
+		seats.setText(String.valueOf(SeatBooking.selectedSeatList));
 
 		saveBookingToDatabase();
 	}
