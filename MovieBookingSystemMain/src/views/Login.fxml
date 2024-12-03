@@ -16,14 +16,14 @@
 				<Font name="System Bold" size="12.0" />
 			</font>
 		</Button>
-		<TextField fx:id="txtUserName" layoutX="359.0" layoutY="124.0" prefHeight="25.0" prefWidth="242.0" promptText="UserName" />
+		<TextField fx:id="txtUserName" layoutX="359.0" layoutY="138.0" prefHeight="25.0" prefWidth="242.0" promptText="UserName" />
 		<PasswordField fx:id="txtPassword" layoutX="359.0" layoutY="194.0" prefHeight="25.0" prefWidth="242.0" promptText="Password" />
-		<Label fx:id="lblStatus" alignment="CENTER" layoutX="351.0" layoutY="14.0" prefHeight="17.0" prefWidth="258.0" text="Login">
+		<Label fx:id="lblStatus" alignment="CENTER" layoutX="351.0" layoutY="33.0" prefHeight="39.0" prefWidth="271.0">
 			<font>
-				<Font name="System Bold" size="14.0" />
+				<Font size="14.0" />
 			</font>
 		</Label>
-		<Label layoutX="360.0" layoutY="104.0" text="Username:">
+		<Label layoutX="360.0" layoutY="118.0" text="Username:">
 			<font>
 				<Font name="System Bold" size="14.0" />
 			</font>
@@ -33,14 +33,19 @@
 				<Font name="System Bold" size="14.0" />
 			</font>
 		</Label>
-		<Label layoutX="360.0" layoutY="53.0" prefHeight="20.0" prefWidth="258.0" text="Sign into your exclusive Movie account to " />
-		<Label layoutX="361.0" layoutY="73.0" text="continue!" />
+		<Label layoutX="360.0" layoutY="67.0" prefHeight="20.0" prefWidth="258.0" text="Sign into your exclusive Movie account to " />
+		<Label layoutX="361.0" layoutY="87.0" text="continue!" />
 		<Label layoutX="395.0" layoutY="286.0" text="New to MovieFlix?" />
-		<Button fx:id="signUpButton" layoutX="489.0" layoutY="282.0" mnemonicParsing="false" onAction="#signUpButtonOnAction" style="-fx-background-color: transperent;" text="SignUp Npw" textFill="#4f3cd0" underline="true" />
+		<Button fx:id="signUpButton" layoutX="489.0" layoutY="282.0" mnemonicParsing="false" onAction="#signUpButtonOnAction" style="-fx-background-color: transperent;" text="SignUp Now" textFill="#4f3cd0" underline="true" />
 		<ImageView fitHeight="343.0" fitWidth="325.0" pickOnBounds="true" preserveRatio="true">
 			<image>
 				<Image url="@../images/Movie.png" />
 			</image>
 		</ImageView>
+      <Label layoutX="462.0" layoutY="14.0" text="Login">
+         <font>
+            <Font name="Calibri Bold" size="16.0" />
+         </font>
+      </Label>
 	</children>
 </AnchorPane>

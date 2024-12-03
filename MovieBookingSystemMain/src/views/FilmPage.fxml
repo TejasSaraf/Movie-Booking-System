@@ -2,34 +2,43 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="403.0" prefWidth="519.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FilmPage">
+<AnchorPane prefHeight="403.0" prefWidth="564.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FilmPage">
 	<children>
-		<ImageView fx:id="filmImageView" fitHeight="296.0" fitWidth="200.0" layoutX="22.0" layoutY="73.0" />
-		<Label layoutX="22.0" layoutY="14.0" text="Movie Flix">
+		<ImageView fx:id="filmImageView" fitHeight="296.0" fitWidth="200.0" layoutX="22.0" layoutY="73.0">
+         <image>
+            <Image url="@../images/defaultFilmPoster.png" />
+         </image></ImageView>
+		<Label layoutX="57.0" layoutY="17.0" text="Movies Flix">
 			<font>
-				<Font name="Comic Sans MS Bold" size="23.0" />
+				<Font name="Calibri Bold" size="24.0" />
 			</font>
 		</Label>
-		<Button fx:id="backBtn" layoutX="460.0" layoutY="18.0" mnemonicParsing="false" onAction="#handleBackButtonAction" text="Back" />
-		<Label fx:id="lblTitle" layoutX="235.0" layoutY="66.0" text="Label" />
-		<Text fx:id="txtdescription" layoutX="235.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="266.13671875" />
-		<Label layoutX="234.0" layoutY="235.0" text="From:" />
-		<Label layoutX="235.0" layoutY="265.0" text="To:" />
-		<Label layoutX="361.0" layoutY="235.0" text="Age Rating:" />
-		<Label layoutX="357.0" layoutY="265.0" text="IMDB Rating:" />
-		<Label fx:id="lblFrom" layoutX="280.0" layoutY="235.0" prefHeight="17.0" prefWidth="70.0" text="Label" />
-		<Label fx:id="lblTo" layoutX="280.0" layoutY="265.0" prefHeight="17.0" prefWidth="70.0" text="Label" />
-		<Label fx:id="lblAgeRating" layoutX="435.0" layoutY="235.0" prefHeight="17.0" prefWidth="70.0" text="Label" />
-		<Label fx:id="lblImdbRating" layoutX="435.0" layoutY="265.0" prefHeight="17.0" prefWidth="70.0" text="Label" />
-		<Label layoutX="234.0" layoutY="294.0" text="Times:" />
-		<Label fx:id="lblTimes" layoutX="280.0" layoutY="294.0" prefHeight="17.0" prefWidth="139.0" text="Label" />
-		<Button fx:id="btnDelete" layoutX="234.0" layoutY="345.0" mnemonicParsing="false" onAction="#handleDeleteFilm" text="Delete" />
-		<Button fx:id="bookBtn" layoutX="417.0" layoutY="345.0" mnemonicParsing="false" onAction="#goToBookingScene" text="See Bookings" />
-      <Button fx:id="btnEdit" layoutX="324.0" layoutY="345.0" mnemonicParsing="false" onAction="#updateFilm" text="Edit" />
+		<Button fx:id="backBtn" layoutX="504.0" layoutY="19.0" mnemonicParsing="false" onAction="#handleBackButtonAction" style="-fx-background-color: #b93939;" text="Back" textFill="WHITE" />
+		<Label fx:id="lblTitle" layoutX="271.0" layoutY="65.0" text="Label" />
+		<Text fx:id="txtdescription" layoutX="271.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="266.13671875" />
+		<Label layoutX="270.0" layoutY="235.0" text="From:" />
+		<Label layoutX="274.0" layoutY="265.0" text="To:" translateX="-3.0" />
+		<Label layoutX="404.0" layoutY="235.0" text="Age Rating:" />
+		<Label layoutX="404.0" layoutY="265.0" text="IMDB Rating:" />
+		<Label fx:id="lblFrom" layoutX="308.0" layoutY="235.0" prefHeight="17.0" prefWidth="70.0" text="Label" />
+		<Label fx:id="lblTo" layoutX="308.0" layoutY="265.0" prefHeight="17.0" prefWidth="70.0" text="Label" />
+		<Label fx:id="lblAgeRating" layoutX="480.0" layoutY="235.0" prefHeight="17.0" prefWidth="70.0" text="Label" />
+		<Label fx:id="lblImdbRating" layoutX="480.0" layoutY="265.0" prefHeight="17.0" prefWidth="70.0" text="Label" />
+		<Label layoutX="273.0" layoutY="294.0" text="Times:" translateX="-3.0" />
+		<Label fx:id="lblTimes" layoutX="309.0" layoutY="294.0" prefHeight="17.0" prefWidth="139.0" text="Label" />
+		<Button fx:id="btnDelete" layoutX="262.0" layoutY="345.0" mnemonicParsing="false" onAction="#handleDeleteFilm" style="-fx-background-color: #b93939;" text="Delete" textFill="WHITE" translateX="8.0" />
+		<Button fx:id="bookBtn" layoutX="461.0" layoutY="345.0" mnemonicParsing="false" onAction="#goToBookingScene" style="-fx-background-color: #b93939;" text="See Bookings" textFill="WHITE" />
+      <Button fx:id="btnEdit" layoutX="367.0" layoutY="345.0" mnemonicParsing="false" onAction="#updateFilm" style="-fx-background-color: #b93939;" text="Update" textFill="WHITE" />
+      <ImageView fitHeight="44.0" fitWidth="51.0" layoutX="6.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/cinema.png" />
+         </image>
+      </ImageView>
 	</children>
 </AnchorPane>

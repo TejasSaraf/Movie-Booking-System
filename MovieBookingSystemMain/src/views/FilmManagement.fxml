@@ -12,15 +12,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
-	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="controllers.FilmManagement">
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FilmManagement">
 	<children>
 		<AnchorPane prefHeight="471.0" prefWidth="702.0">
 			<children>
-				<Label layoutX="23.0" layoutY="21.0" text="Movie House">
+				<Label layoutX="69.0" layoutY="22.0" text="Movies Flix">
 					<font>
-						<Font name="Comic Sans MS Bold" size="20.0" />
+						<Font name="Calibri Bold" size="24.0" />
 					</font>
 				</Label>
 				<Label layoutX="23.0" layoutY="66.0" text="Add New Film">
@@ -29,103 +27,54 @@
 					</font>
 				</Label>
 				<Label layoutX="23.0" layoutY="115.0" text="Image" />
-				<Button fx:id="uploadImageButton" layoutX="99.0"
-					layoutY="111.0" mnemonicParsing="false"
-					onAction="#handleUploadImage" prefHeight="25.0" prefWidth="225.0"
-					text="Upload Image" />
+				<Button fx:id="uploadImageButton" layoutX="99.0" layoutY="111.0" mnemonicParsing="false" onAction="#handleUploadImage" prefHeight="25.0" prefWidth="225.0" text="Upload Image" />
 				<Label layoutX="23.0" layoutY="152.0" text="Trailer" />
-				<TextField fx:id="trailerField" layoutX="99.0"
-					layoutY="148.0" onKeyReleased="#updateFilmDetails"
-					prefHeight="25.0" prefWidth="225.0" promptText="Enter Trailer Link" />
+				<TextField fx:id="trailerField" layoutX="99.0" layoutY="148.0" onKeyReleased="#updateFilmDetails" prefHeight="25.0" prefWidth="225.0" promptText="Enter Trailer Link" />
 				<Label layoutX="23.0" layoutY="182.0" text="Title" />
-				<TextField fx:id="titleField" layoutX="99.0"
-					layoutY="178.0" onKeyReleased="#updateFilmDetails"
-					prefHeight="25.0" prefWidth="225.0" promptText="Enter Title" />
-				<Label layoutX="26.0" layoutY="219.0" text="Description"
-					translateX="-4.0" />
-				<TextArea fx:id="descriptionArea" layoutX="99.0"
-					layoutY="211.0" onKeyReleased="#updateFilmDetails"
-					prefHeight="96.0" prefWidth="225.0" promptText="Enter Description" />
+				<TextField fx:id="titleField" layoutX="99.0" layoutY="178.0" onKeyReleased="#updateFilmDetails" prefHeight="25.0" prefWidth="225.0" promptText="Enter Title" />
+				<Label layoutX="26.0" layoutY="219.0" text="Description" translateX="-4.0" />
+				<TextArea fx:id="descriptionArea" layoutX="99.0" layoutY="211.0" onKeyReleased="#updateFilmDetails" prefHeight="96.0" prefWidth="225.0" promptText="Enter Description" />
 				<Label layoutX="27.0" layoutY="342.0" text="Date" />
 				<Label layoutX="99.0" layoutY="316.0" text="From" />
 				<Label layoutX="220.0" layoutY="316.0" text="To" />
-				<DatePicker fx:id="fromDate" layoutX="99.0"
-					layoutY="338.0" onAction="#updateDateTimeAge"
-					onKeyReleased="#updateDateTimeAge" prefHeight="25.0"
-					prefWidth="102.0" />
-				<DatePicker fx:id="toDate" layoutX="220.0"
-					layoutY="338.0" onAction="#updateDateTimeAge"
-					onKeyReleased="#updateDateTimeAge" prefHeight="25.0"
-					prefWidth="102.0" />
+				<DatePicker fx:id="fromDate" layoutX="99.0" layoutY="338.0" onAction="#updateDateTimeAge" onKeyReleased="#updateDateTimeAge" prefHeight="25.0" prefWidth="102.0" />
+				<DatePicker fx:id="toDate" layoutX="220.0" layoutY="338.0" onAction="#updateDateTimeAge" onKeyReleased="#updateDateTimeAge" prefHeight="25.0" prefWidth="102.0" />
 				<Label layoutX="27.0" layoutY="378.0" text="Times" />
 				<Label layoutX="27.0" layoutY="406.0" text="Age Rating" />
-				<Label layoutX="27.0" layoutY="433.0" text="IMDB Rating" />
-				<TextField fx:id="imdbRatingField" layoutX="99.0"
-					layoutY="429.0" onKeyReleased="#updateFilmDetails"
-					prefHeight="25.0" prefWidth="121.0" promptText="X/10" />
-				<Button fx:id="addFilmButton" layoutX="227.0" layoutY="429.0"
-					mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0"
-					text="Add Film" />
-				<ImageView fx:id="uploadedFilmPoster" fitHeight="164.0"
-					fitWidth="131.0" layoutX="374.0" layoutY="109.0"
-					pickOnBounds="true" preserveRatio="true">
+				<Label layoutX="25.0" layoutY="433.0" text="IMDB Rating" />
+				<TextField fx:id="imdbRatingField" layoutX="99.0" layoutY="429.0" onKeyReleased="#updateFilmDetails" prefHeight="25.0" prefWidth="121.0" promptText="X/10" />
+				<Button fx:id="addFilmButton" layoutX="227.0" layoutY="429.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: #b93939;" text="Add Film" textFill="WHITE" />
+				<ImageView fx:id="uploadedFilmPoster" fitHeight="164.0" fitWidth="121.0" layoutX="374.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true">
 					<image>
 						<Image url="@../images/defaultFilmPoster.png" />
 					</image>
 				</ImageView>
-				<Button fx:id="backBtn" layoutX="568.0" layoutY="23.0"
-					mnemonicParsing="false" onAction="#backButtonOnAction" text="Back" />
-				<Button fx:id="homeBtn" layoutX="623.0" layoutY="23.0"
-					mnemonicParsing="false" onAction="#homeButtonOnAction" text="Home" />
-				<Label fx:id="txtTitle" layoutX="501.0" layoutY="107.0"
-					prefHeight="17.0" prefWidth="109.0" />
-				<Label layoutX="505.0" layoutY="149.0" prefHeight="17.0"
-					prefWidth="23.0" text="To:" translateX="-4.0" />
-				<Label layoutX="501.0" layoutY="128.0" prefHeight="17.0"
-					prefWidth="31.0" text="From:" />
-				<Label fx:id="lblTo" layoutX="555.0" layoutY="149.0"
-					prefHeight="17.0" prefWidth="109.0" text="dd/mm/yyyy" />
-				<Label fx:id="lblFrom" layoutX="555.0" layoutY="128.0"
-					prefHeight="17.0" prefWidth="109.0" text="14/01/2024" />
-				<Label layoutX="507.0" layoutY="170.0" prefHeight="17.0"
-					prefWidth="41.0" text="Times:" translateX="-5.0" />
-				<Label fx:id="lblTime3" layoutX="555.0" layoutY="211.0"
-					prefHeight="17.0" prefWidth="109.0" text="HH:mm" />
-				<Label fx:id="lblTime2" layoutX="555.0" layoutY="191.0"
-					prefHeight="17.0" prefWidth="109.0" text="HH:mm" />
-				<Label fx:id="lblTime1" layoutX="555.0" layoutY="170.0"
-					prefHeight="17.0" prefWidth="109.0" text="21:00" />
-				<Label layoutX="507.0" layoutY="236.0" prefHeight="17.0"
-					prefWidth="70.0" text="Age Rating:" translateX="-4.0" />
-				<Label layoutX="503.0" layoutY="259.0" prefHeight="17.0"
-					prefWidth="77.0" text="IMDB Rating:" />
-				<Label fx:id="lblAgeRating" layoutX="580.0" layoutY="236.0"
-					prefHeight="17.0" prefWidth="109.0" text="12A" />
-				<Label fx:id="lblIMDBRating" layoutX="580.0" layoutY="259.0"
-					prefHeight="17.0" prefWidth="109.0" text="X/10" />
-				<Button fx:id="viewFilms" layoutX="584.0" layoutY="429.0"
-					mnemonicParsing="false" onAction="#viewFilmsButtonOnAction"
-					prefHeight="25.0" prefWidth="102.0" text="See All Films"
-					translateX="-10.0" />
-				<Text fx:id="txtdescription" layoutX="374.0" layoutY="311.0"
-					onKeyReleased="#updateFilmDetails" strokeType="OUTSIDE"
-					strokeWidth="0.0" wrappingWidth="285.13671875" />
-				<ComboBox fx:id="timeChoice1" layoutX="99.0"
-					layoutY="374.0" onAction="#updateDateTimeAge"
-					onKeyReleased="#updateDateTimeAge" prefHeight="25.0"
-					prefWidth="70.0" />
-				<ComboBox fx:id="timeChoice2" layoutX="177.0"
-					layoutY="374.0" onAction="#updateDateTimeAge"
-					onKeyReleased="#updateDateTimeAge" prefHeight="25.0"
-					prefWidth="70.0" />
-				<ComboBox fx:id="timeChoice3" layoutX="254.0"
-					layoutY="374.0" onAction="#updateDateTimeAge"
-					onKeyReleased="#updateDateTimeAge" prefHeight="25.0"
-					prefWidth="70.0" />
-				<ComboBox fx:id="ageRatingChoice" layoutX="99.0"
-					layoutY="402.0" onAction="#updateDateTimeAge"
-					onKeyReleased="#updateDateTimeAge" prefHeight="25.0"
-					prefWidth="70.0" />
+				<Button fx:id="backBtn" layoutX="574.0" layoutY="23.0" mnemonicParsing="false" onAction="#backButtonOnAction" style="-fx-background-color: #b93939;" text="Back" textFill="WHITE" />
+				<Button fx:id="homeBtn" layoutX="635.0" layoutY="23.0" mnemonicParsing="false" onAction="#homeButtonOnAction" style="-fx-background-color: #b93939;" text="Home" textFill="WHITE" />
+				<Label fx:id="txtTitle" layoutX="501.0" layoutY="107.0" prefHeight="17.0" prefWidth="109.0" />
+				<Label layoutX="505.0" layoutY="149.0" prefHeight="17.0" prefWidth="23.0" text="To:" translateX="-4.0" />
+				<Label layoutX="501.0" layoutY="128.0" prefHeight="17.0" prefWidth="31.0" text="From:" />
+				<Label fx:id="lblTo" layoutX="555.0" layoutY="149.0" prefHeight="17.0" prefWidth="109.0" text="dd/mm/yyyy" />
+				<Label fx:id="lblFrom" layoutX="555.0" layoutY="128.0" prefHeight="17.0" prefWidth="109.0" text="14/01/2024" />
+				<Label layoutX="507.0" layoutY="170.0" prefHeight="17.0" prefWidth="41.0" text="Times:" translateX="-5.0" />
+				<Label fx:id="lblTime3" layoutX="555.0" layoutY="211.0" prefHeight="17.0" prefWidth="109.0" text="HH:mm" />
+				<Label fx:id="lblTime2" layoutX="555.0" layoutY="191.0" prefHeight="17.0" prefWidth="109.0" text="HH:mm" />
+				<Label fx:id="lblTime1" layoutX="555.0" layoutY="170.0" prefHeight="17.0" prefWidth="109.0" text="21:00" />
+				<Label layoutX="507.0" layoutY="236.0" prefHeight="17.0" prefWidth="70.0" text="Age Rating:" translateX="-4.0" />
+				<Label layoutX="503.0" layoutY="259.0" prefHeight="17.0" prefWidth="77.0" text="IMDB Rating:" />
+				<Label fx:id="lblAgeRating" layoutX="580.0" layoutY="236.0" prefHeight="17.0" prefWidth="109.0" text="12A" />
+				<Label fx:id="lblIMDBRating" layoutX="580.0" layoutY="259.0" prefHeight="17.0" prefWidth="109.0" text="X/10" />
+				<Button fx:id="viewFilms" layoutX="584.0" layoutY="429.0" mnemonicParsing="false" onAction="#viewFilmsButtonOnAction" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: #b93939;" text="See All Films" textFill="WHITE" translateX="-10.0" />
+				<Text fx:id="txtdescription" layoutX="374.0" layoutY="311.0" onKeyReleased="#updateFilmDetails" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="285.13671875" />
+				<ComboBox fx:id="timeChoice1" layoutX="99.0" layoutY="374.0" onAction="#updateDateTimeAge" onKeyReleased="#updateDateTimeAge" prefHeight="25.0" prefWidth="70.0" />
+				<ComboBox fx:id="timeChoice2" layoutX="177.0" layoutY="374.0" onAction="#updateDateTimeAge" onKeyReleased="#updateDateTimeAge" prefHeight="25.0" prefWidth="70.0" />
+				<ComboBox fx:id="timeChoice3" layoutX="254.0" layoutY="374.0" onAction="#updateDateTimeAge" onKeyReleased="#updateDateTimeAge" prefHeight="25.0" prefWidth="70.0" />
+				<ComboBox fx:id="ageRatingChoice" layoutX="99.0" layoutY="402.0" onAction="#updateDateTimeAge" onKeyReleased="#updateDateTimeAge" prefHeight="25.0" prefWidth="70.0" />
+            <ImageView fitHeight="46.0" fitWidth="49.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/cinema.png" />
+               </image>
+            </ImageView>
 			</children>
 		</AnchorPane>
 	</children>

@@ -3,6 +3,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
@@ -15,11 +17,17 @@
 				<TilePane fx:id="tilePane" hgap="10" prefColumns="5" vgap="10" /> <!-- 3 columns in grid -->
 			</content>
 		</ScrollPane>
-		<Label layoutX="14.0" layoutY="11.0" text="Movie Flix">
+		<Label layoutX="67.0" layoutY="10.0" text="Movie Flix">
 			<font>
-				<Font name="Comic Sans MS Bold" size="22.0" />
+				<Font name="Calibri Bold" size="24.0" />
 			</font>
 		</Label>
-		<Button fx:id="btnLogout" layoutX="504.0" layoutY="15.0" mnemonicParsing="false" onAction="#logoutButtonOnAction" text="Logout" />
+		<Button fx:id="btnLogout" layoutX="504.0" layoutY="11.0" mnemonicParsing="false" onAction="#logoutButtonOnAction" style="-fx-background-color: #b93939;" text="Logout" textFill="WHITE" />
+      <ImageView fitHeight="41.0" fitWidth="47.0" layoutX="7.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="41.0" fitWidth="47.0" layoutX="14.0" layoutY="3.0">
+         <image>
+            <Image url="@../images/cinema.png" />
+         </image>
+      </ImageView>
 	</children>
 </AnchorPane>

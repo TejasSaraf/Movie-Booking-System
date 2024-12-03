@@ -34,19 +34,18 @@ public class ViewFilms {
 
 	@FXML
 	public void logoutButtonOnAction(ActionEvent e) {
-	    UserSession.getInstance().clearSession();
-	    try {
-	        javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
-	        javafx.scene.Scene scene = new javafx.scene.Scene(root);
-	        javafx.stage.Stage stage = (javafx.stage.Stage) btnLogout.getScene().getWindow();
-	        stage.setScene(scene);
-	        stage.show();
-	    } catch (Exception ex) {
-	        ex.printStackTrace();
+		UserSession.getInstance().clearSession();
+		try {
+			javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
+			javafx.scene.Scene scene = new javafx.scene.Scene(root);
+			javafx.stage.Stage stage = (javafx.stage.Stage) btnLogout.getScene().getWindow();
+			stage.setScene(scene);
+			stage.show();
+		} catch (Exception ex) {
+			ex.printStackTrace();
 //	        lblStatus.setText("Error navigating to login page.");
-	    }
+		}
 	}
-
 
 	@FXML
 	public void initialize() {
@@ -127,13 +126,5 @@ public class ViewFilms {
 			e.printStackTrace();
 			System.out.println("Error loading FilmPage.fxml.");
 		}
-	}
-
-	private void showAlert(String title, String message) {
-		Alert alert = new Alert(Alert.AlertType.INFORMATION);
-		alert.setTitle(title);
-		alert.setHeaderText(null);
-		alert.setContentText(message);
-		alert.showAndWait();
 	}
 }

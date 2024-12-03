@@ -6,46 +6,50 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TicketBookings">
    <children>
-      <AnchorPane prefHeight="439.0" prefWidth="650.0">
+      <AnchorPane prefHeight="431.0" prefWidth="650.0">
          <children>
-            <Label fx:id="selectedFilmTitle" layoutX="427.0" layoutY="244.0" text="Film Title" />
-            <Button fx:id="backBtn" layoutX="520.0" layoutY="27.0" mnemonicParsing="false" onAction="#handleBackButtonAction" text="Back" />
-           <ImageView fx:id="selectedFilmPoster" fitHeight="167.0" fitWidth="130.0" layoutX="451.0" layoutY="71.0" />
-            <Label layoutX="34.0" layoutY="25.0" text="Movies Flix">
+            <Label fx:id="selectedFilmTitle" layoutX="427.0" layoutY="252.0" text="Film Title" />
+            <Button fx:id="backBtn" layoutX="520.0" layoutY="27.0" mnemonicParsing="false" onAction="#handleBackButtonAction" style="-fx-background-color: #b93939;" text="Back" textFill="WHITE" />
+           <ImageView fx:id="selectedFilmPoster" fitHeight="167.0" fitWidth="130.0" layoutX="451.0" layoutY="71.0">
+               <image>
+                  <Image url="@../images/defaultFilmPoster.png" />
+               </image></ImageView>
+            <Label layoutX="65.0" layoutY="26.0" text="Movies Flix">
                <font>
-                  <Font name="Comic Sans MS Bold" size="20.0" />
+                  <Font name="Calibri Bold" size="24.0" />
                </font>
             </Label>
             <Label layoutX="34.0" layoutY="71.0" text="Select Tickets">
                <font>
-                  <Font name="Comic Sans MS Bold" size="14.0" />
+                  <Font name="Calibri Bold" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="35.0" layoutY="125.0" text="Adult" />
-            <Label layoutX="35.0" layoutY="176.0" text="Child" />
-            <Label layoutX="32.0" layoutY="230.0" text="Senior" />
+            <Label layoutX="35.0" layoutY="134.0" text="Adult" />
+            <Label layoutX="35.0" layoutY="185.0" text="Child" />
+            <Label layoutX="32.0" layoutY="239.0" text="Senior" />
             <Label layoutX="110.0" layoutY="101.0" text="Quantity" />
             <Label layoutX="235.0" layoutY="101.0" text="Price" />
-            <ComboBox fx:id="adultcombo" layoutX="90.0" layoutY="121.0" prefHeight="25.0" prefWidth="86.0" />
-            <ComboBox fx:id="seniorcombo" layoutX="90.0" layoutY="226.0" prefHeight="25.0" prefWidth="86.0" />
-            <ComboBox fx:id="childcombo" layoutX="90.0" layoutY="172.0" prefHeight="25.0" prefWidth="86.0" />
-            <Label layoutX="235.0" layoutY="125.0" text="\$50.0" />
-            <Label layoutX="235.0" layoutY="176.0" text="\$20.0" />
-            <Label layoutX="235.0" layoutY="230.0" text="\$40.0" />
-            <Label layoutX="34.0" layoutY="276.0" text="Upgrade to VIP, $5 extra" />
-            <CheckBox fx:id="checkbox" layoutX="240.0" layoutY="276.0" mnemonicParsing="false" prefHeight="5.0" prefWidth="2.0" />
-            <Label layoutX="121.0" layoutY="357.0" text="Total:">
+            <ComboBox fx:id="adultcombo" layoutX="90.0" layoutY="130.0" prefHeight="25.0" prefWidth="86.0" />
+            <ComboBox fx:id="seniorcombo" layoutX="90.0" layoutY="235.0" prefHeight="25.0" prefWidth="86.0" />
+            <ComboBox fx:id="childcombo" layoutX="90.0" layoutY="181.0" prefHeight="25.0" prefWidth="86.0" />
+            <Label layoutX="235.0" layoutY="134.0" text="\$50.0" />
+            <Label layoutX="234.0" layoutY="185.0" text="\$20.0" />
+            <Label layoutX="235.0" layoutY="239.0" text="\$40.0" />
+            <Label layoutX="35.0" layoutY="285.0" text="Upgrade to VIP, $5 extra" />
+            <CheckBox fx:id="checkbox" layoutX="240.0" layoutY="284.0" mnemonicParsing="false" prefHeight="5.0" prefWidth="2.0" />
+            <Label layoutX="57.0" layoutY="359.0" text="Total:">
                <font>
-                  <Font size="18.0" />
+                  <Font name="Calibri" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="totalPrice" layoutX="176.0" layoutY="360.0" text="\$0.00">
+            <Label fx:id="totalPrice" layoutX="115.0" layoutY="360.0" text="\$0.00">
                <font>
                   <Font size="15.0" />
                </font>
@@ -56,8 +60,18 @@
             <DatePicker fx:id="selectedDate" layoutX="502.0" layoutY="280.0" prefHeight="25.0" prefWidth="119.0" />
             <ComboBox fx:id="filmTimes" layoutX="502.0" layoutY="314.0" prefHeight="25.0" prefWidth="119.0" />
             <TextField fx:id="screen" layoutX="502.0" layoutY="349.0" prefHeight="25.0" prefWidth="119.0" />
-            <Button fx:id="seatsBtn" layoutX="522.0" layoutY="385.0" mnemonicParsing="false" onAction="#handleSeatsButtonAction" text="Select Seats" />
-            <Button fx:id="homeBtn" layoutX="572.0" layoutY="27.0" mnemonicParsing="false" onAction="#handleHomeButtonAction" text="Home" />
+            <Button fx:id="seatsBtn" layoutX="522.0" layoutY="385.0" mnemonicParsing="false" onAction="#handleSeatsButtonAction" style="-fx-background-color: #b93939;" text="Select Seats" textFill="WHITE" />
+            <Button fx:id="homeBtn" layoutX="572.0" layoutY="27.0" mnemonicParsing="false" onAction="#handleHomeButtonAction" style="-fx-background-color: #b93939;" text="Home" textFill="WHITE" />
+            <ImageView fitHeight="46.0" fitWidth="49.0" layoutX="11.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/cinema.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="69.0" fitWidth="79.0" layoutX="176.0" layoutY="325.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/movies.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

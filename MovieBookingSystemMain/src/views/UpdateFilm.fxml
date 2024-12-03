@@ -16,14 +16,14 @@
 	<children>
 		<AnchorPane prefHeight="471.0" prefWidth="702.0">
 			<children>
-				<Label layoutX="23.0" layoutY="21.0" text="Movie House">
+				<Label layoutX="69.0" layoutY="18.0" text="Movies Flix">
 					<font>
-						<Font name="Comic Sans MS Bold" size="20.0" />
+						<Font name="Calibri Bold" size="24.0" />
 					</font>
 				</Label>
-				<Label layoutX="23.0" layoutY="66.0" text="Add New Film">
+				<Label layoutX="23.0" layoutY="66.0" text="Update Film">
 					<font>
-						<Font name="Comic Sans MS Bold" size="15.0" />
+						<Font name="Calibri Bold" size="16.0" />
 					</font>
 				</Label>
 				<Label layoutX="23.0" layoutY="115.0" text="Image" />
@@ -43,13 +43,13 @@
 				<Label layoutX="27.0" layoutY="406.0" text="Age Rating" />
 				<Label layoutX="27.0" layoutY="433.0" text="IMDB Rating" />
 				<TextField fx:id="imdbRatingField" layoutX="99.0" layoutY="429.0" prefHeight="25.0" prefWidth="121.0" promptText="X/10" />
-				<Button fx:id="addFilmButton" layoutX="227.0" layoutY="429.0" mnemonicParsing="false" onAction="#handleUpdateFilm" prefHeight="25.0" prefWidth="102.0" text="Update Film" />
+				<Button fx:id="addFilmButton" layoutX="227.0" layoutY="429.0" mnemonicParsing="false" onAction="#handleUpdateFilm" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: #b93939;" text="Update Film" textFill="WHITE" />
 				<ImageView fx:id="uploadedFilmPoster" fitHeight="170.0" fitWidth="115.0" layoutX="374.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
 					<image>
 						<Image url="@../images/defaultFilmPoster.png" />
 					</image>
 				</ImageView>
-				<Button fx:id="homeBtn" layoutX="623.0" layoutY="23.0" mnemonicParsing="false" onAction="#handleHomeButtonAction" text="Home" />
+				<Button fx:id="homeBtn" layoutX="625.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleHomeButtonAction" style="-fx-background-color: #b93939;" text="Home" textFill="WHITE" />
 				<Label fx:id="txtTitle" layoutX="501.0" layoutY="107.0" prefHeight="17.0" prefWidth="109.0" />
 				<Label layoutX="505.0" layoutY="149.0" prefHeight="17.0" prefWidth="23.0" text="To:" translateX="-4.0" />
 				<Label layoutX="501.0" layoutY="128.0" prefHeight="17.0" prefWidth="31.0" text="From:" />
@@ -68,6 +68,11 @@
 				<ComboBox fx:id="timeChoice2" layoutX="177.0" layoutY="374.0" onAction="#updateDateTimeAge" onKeyReleased="#updateDateTimeAge" prefHeight="25.0" prefWidth="70.0" />
 				<ComboBox fx:id="timeChoice3" layoutX="254.0" layoutY="374.0" onAction="#updateDateTimeAge" onKeyReleased="#updateDateTimeAge" prefHeight="25.0" prefWidth="70.0" />
 				<ComboBox fx:id="ageRatingChoice" layoutX="99.0" layoutY="402.0" onAction="#updateDateTimeAge" onKeyReleased="#updateDateTimeAge" prefHeight="25.0" prefWidth="70.0" />
+            <ImageView fitHeight="48.0" fitWidth="49.0" layoutX="6.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/cinema.png" />
+               </image>
+            </ImageView>
 			</children>
 		</AnchorPane>
 	</children>

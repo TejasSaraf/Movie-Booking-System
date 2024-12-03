@@ -3,7 +3,6 @@ package controllers;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -219,12 +218,12 @@ public class TicketBookings {
 			// Load the SeatBooking.fxml file
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/SeatBooking.fxml"));
 			Parent root = loader.load();
-			
-			// Get the controller from the loaded FXML
-						SeatBooking seatBookingController = loader.getController();
 
-						// Pass the imageId to the FilmPage controller
-						seatBookingController.setFilmId(currentFilmId);
+			// Get the controller from the loaded FXML
+			SeatBooking seatBookingController = loader.getController();
+
+			// Pass the imageId to the FilmPage controller
+			seatBookingController.setFilmId(currentFilmId);
 
 			// Get the current stage
 			Stage stage = (Stage) seatsBtn.getScene().getWindow();
