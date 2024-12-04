@@ -38,9 +38,9 @@
                <image>
                   <Image url="@../images/defaultFilmPoster.png" />
                </image></ImageView>
-				<Text fx:id="selectedFilmTitle" fill="#3b4754" layoutX="123.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Film Name" wrappingWidth="165.91453170776367">
+				<Text fx:id="selectedFilmTitle" fill="#3b4754" layoutX="113.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Film Name" wrappingWidth="222.91453170776367">
 					<font>
-						<Font name="Calibri Bold" size="30.0" />
+						<Font name="Calibri Bold" size="20.0" />
 					</font>
 				</Text>
 				<Text fill="#3b4754" layoutX="121.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adult:" wrappingWidth="53.24787521362305">

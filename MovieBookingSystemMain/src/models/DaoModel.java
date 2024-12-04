@@ -24,6 +24,7 @@ public class DaoModel {
 	}
 
 	// Method to check if the useraccounts table exists
+	// Method to check if the useraccounts table exists
 	public boolean isTableExists(String tableName) {
 		boolean exists = false;
 		try {
@@ -33,6 +34,12 @@ public class DaoModel {
 			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+
+		if (exists) {
+			System.out.println("Table '" + tableName + "' already exists!");
+		} else {
+			System.out.println("Table '" + tableName + "' does not exist!");
 		}
 		return exists;
 	}
@@ -76,6 +83,51 @@ public class DaoModel {
 
 			stmt.executeUpdate(createTableSQL);
 			System.out.println("Created table successfully...");
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}
+	}
+
+	public void createTableForFilms(String tableName) {
+		try {
+			stmt = dbConnection.createStatement();
+			System.out.println("Creating table " + tableName + " in the database...");
+
+			// Correct table creation query
+			String createTableSQL = "CREATE TABLE " + tableName + " (" + "id INT NOT NULL AUTO_INCREMENT, "
+					+ "image_data LONGBLOB, " + "trailer VARCHAR(255) DEFAULT NULL, "
+					+ "title VARCHAR(255) DEFAULT NULL, " + "description TEXT, " + "date_from DATE DEFAULT NULL, "
+					+ "date_to DATE DEFAULT NULL, " + "times VARCHAR(255) DEFAULT NULL, "
+					+ "age_rating VARCHAR(10) DEFAULT NULL, " + "imdb_rating VARCHAR(10) DEFAULT NULL, "
+					+ "PRIMARY KEY (id)) "
+					+ "ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;";
+
+			stmt.executeUpdate(createTableSQL);
+			System.out.println("Table " + tableName + " created successfully...");
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}
+	}
+
+	public void createTableForBookings(String tableName) {
+		try {
+			stmt = dbConnection.createStatement();
+			System.out.println("Creating table " + tableName + " in the database...");
+
+			// Correct table creation query
+			String createTableSQL = "CREATE TABLE " + tableName + " (" + "id INT NOT NULL AUTO_INCREMENT, "
+					+ "firstname VARCHAR(100) NOT NULL, " + "lastname VARCHAR(100) NOT NULL, "
+					+ "email VARCHAR(255) NOT NULL, " + "film_title VARCHAR(255) NOT NULL, "
+					+ "screen_num VARCHAR(50) NOT NULL, " + "date DATE NOT NULL, " + "time VARCHAR(20) NOT NULL, "
+					+ "adult_tickets INT NOT NULL DEFAULT 0, " + "child_tickets INT NOT NULL DEFAULT 0, "
+					+ "senior_tickets INT NOT NULL DEFAULT 0, " + "total_price DECIMAL(10,2) NOT NULL, "
+					+ "is_vip TINYINT(1) NOT NULL DEFAULT 0, " + "PRIMARY KEY (id)) "
+					+ "ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;";
+
+			stmt.executeUpdate(createTableSQL);
+			System.out.println("Table " + tableName + " created successfully...");
 
 		} catch (SQLException se) {
 			se.printStackTrace();
@@ -185,6 +237,26 @@ public class DaoModel {
 
 		// Insert user details into the table
 		insertUserForAdmin(tableName, "Admin", "System", "Admin", "#Admin@123");
+	}
+
+	public void checkFilmsTable() {
+		String tableName = "films";
+
+		// Check if table exists
+		if (!isTableExists(tableName)) {
+			// If table doesn't exist, create it
+			createTableForFilms(tableName);
+		}
+	}
+
+	public void checkBookingsTable() {
+		String tableName = "bookings";
+
+		// Check if table exists
+		if (!isTableExists(tableName)) {
+			// If table doesn't exist, create it
+			createTableForBookings(tableName);
+		}
 	}
 
 	// Close the database connection
