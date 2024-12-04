@@ -57,8 +57,7 @@ public class DaoModel {
 					+ "Password VARCHAR(45) NOT NULL, " + "emailaddress VARCHAR(45) DEFAULT NULL, "
 					+ "dateofbirth DATE DEFAULT NULL, " + "address VARCHAR(45) DEFAULT NULL, "
 					+ "phoneno VARCHAR(45) DEFAULT NULL, " + "PRIMARY KEY (idUserAccounts), "
-					+ "UNIQUE KEY Username_UNIQUE (Username)) "
-					+ "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci";
+					+ "UNIQUE KEY Username_UNIQUE (Username)) ";
 
 			stmt.executeUpdate(createTableSQL);
 			System.out.println("Created table successfully...");
@@ -78,8 +77,7 @@ public class DaoModel {
 					+ "idadminAccounts INT UNSIGNED NOT NULL AUTO_INCREMENT, " + "Firstname VARCHAR(45) NOT NULL, "
 					+ "Lastname VARCHAR(45) NOT NULL, " + "Username VARCHAR(45) NOT NULL, "
 					+ "Password VARCHAR(45) NOT NULL, " // Fixed column case
-					+ "PRIMARY KEY (idadminAccounts), " + "UNIQUE KEY Username_UNIQUE (Username)) "
-					+ "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci";
+					+ "PRIMARY KEY (idadminAccounts), " + "UNIQUE KEY Username_UNIQUE (Username)) ";
 
 			stmt.executeUpdate(createTableSQL);
 			System.out.println("Created table successfully...");
@@ -100,8 +98,7 @@ public class DaoModel {
 					+ "title VARCHAR(255) DEFAULT NULL, " + "description TEXT, " + "date_from DATE DEFAULT NULL, "
 					+ "date_to DATE DEFAULT NULL, " + "times VARCHAR(255) DEFAULT NULL, "
 					+ "age_rating VARCHAR(10) DEFAULT NULL, " + "imdb_rating VARCHAR(10) DEFAULT NULL, "
-					+ "PRIMARY KEY (id)) "
-					+ "ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;";
+					+ "PRIMARY KEY (id)) ";
 
 			stmt.executeUpdate(createTableSQL);
 			System.out.println("Table " + tableName + " created successfully...");
@@ -123,8 +120,7 @@ public class DaoModel {
 					+ "screen_num VARCHAR(50) NOT NULL, " + "date DATE NOT NULL, " + "time VARCHAR(20) NOT NULL, "
 					+ "adult_tickets INT NOT NULL DEFAULT 0, " + "child_tickets INT NOT NULL DEFAULT 0, "
 					+ "senior_tickets INT NOT NULL DEFAULT 0, " + "total_price DECIMAL(10,2) NOT NULL, "
-					+ "is_vip TINYINT(1) NOT NULL DEFAULT 0, " + "PRIMARY KEY (id)) "
-					+ "ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;";
+					+ "is_vip TINYINT(1) NOT NULL DEFAULT 0, " + "PRIMARY KEY (id)) ";
 
 			stmt.executeUpdate(createTableSQL);
 			System.out.println("Table " + tableName + " created successfully...");

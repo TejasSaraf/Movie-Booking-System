@@ -51,7 +51,7 @@
 				</ImageView>
 				<Button fx:id="backBtn" layoutX="574.0" layoutY="23.0" mnemonicParsing="false" onAction="#backButtonOnAction" style="-fx-background-color: #b93939;" text="Back" textFill="WHITE" />
 				<Button fx:id="homeBtn" layoutX="635.0" layoutY="23.0" mnemonicParsing="false" onAction="#homeButtonOnAction" style="-fx-background-color: #b93939;" text="Home" textFill="WHITE" />
-				<Label fx:id="txtTitle" layoutX="501.0" layoutY="107.0" prefHeight="17.0" prefWidth="109.0" />
+				<Label fx:id="txtTitle" layoutX="501.0" layoutY="107.0" prefHeight="17.0" prefWidth="184.0" />
 				<Label layoutX="505.0" layoutY="149.0" prefHeight="17.0" prefWidth="23.0" text="To:" translateX="-4.0" />
 				<Label layoutX="501.0" layoutY="128.0" prefHeight="17.0" prefWidth="31.0" text="From:" />
 				<Label fx:id="lblTo" layoutX="555.0" layoutY="149.0" prefHeight="17.0" prefWidth="109.0" text="dd/mm/yyyy" />

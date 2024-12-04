@@ -35,7 +35,8 @@ public class Confirmation {
 
 	String selectedFilm = "", date = "", time = "";
 
-	public static String name = "", finalDate = "", finalTime = "", vipConf = "";
+	public static String name = "", finalDate = "", finalTime = "";
+	boolean vipConf = TicketBookings.isVip;
 	public static int min = 0;
 	public static int max = 9999;
 	public static int id = (int) Math.floor(Math.random() * (max - min + 1) + min);
