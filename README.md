@@ -25,7 +25,12 @@
 <h2> <img src="https://user-images.githubusercontent.com/74038190/216122069-5b8169d7-1d8e-4a13-b245-a8e4176c99f8.png" alt="Rocket" width="40" height="40" align="center" /> Overview</h2>
 
 
-**Movies Flix** is built using Java and Javafx. The application utilizes a MySQL database to store and manage data related to movies, theatres, and user bookings. Following best coding practices, including adherence to coding principles and design patterns, ensures the codebase's robustness, scalability, and maintainability.
+**Movies Flix** is a sophisticated movie booking system developed using Java and JavaFX, designed to streamline the process of managing and booking movie tickets. The system utilizes a MySQL database to efficiently handle data related to movies, theatres, and user bookings, ensuring robust data management and integrity.
+The application is built with a strong emphasis on best coding practices, including adherence to coding principles and design patterns, which contributes to its robustness, scalability, and maintainability. The admin interface allows administrators to manage film listings comprehensively, including adding, deleting, updating films, and monitoring bookings directly from the database. Notably, changes made by administrators are instantly reflected on the user interface, ensuring real-time updates.
+For users, Movies Flix provides an intuitive interface to view available films, book tickets, select seat types (adult, child, senior), upgrade to VIP tickets, and choose specific dates, times, and screens. Users can easily select their seats and receive booking confirmations. The system supports user registration with secure password storage using hashing techniques.
+Underlying the system's data operations is JDBC, which facilitates the interaction between the application and the database. The database schema includes tables such as films, bookings, useraccounts, and adminaccounts, organized to support the comprehensive functionality of Movies Flix.
+This project exemplifies a well-designed, user-centric application that leverages modern technologies and best practices to deliver a seamless movie booking experience.
+
 
 <img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="1920" />
 
